@@ -40,9 +40,9 @@ export default function PricingSection() {
     },
     {
       title: "Managed AI Service",
-      price: "$1000",
-      unit: "per month",
-      description: "We build your business automation, maintain and support for future enhancement. ",
+      price: "Inquire",
+      unit: "",
+      description: "We build your business automation, maintain and support for future enhancement. Pricing varies depending on the complexity of AI service(s).",
       features: [
         "End-to-end solution development(Initial Setup)",
         "Ongoing maintenance",
