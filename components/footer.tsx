@@ -93,10 +93,10 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8 text-sm text-center">
           <p>&copy; {new Date().getFullYear()} Startup Consulting Inc. All rights reserved.</p>
           <div className="mt-2 space-x-4">
-            <Link href="#" className="hover:text-white">
+            <Link href="/privacy-policy" className="hover:text-white">
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-white">
+            <Link href="/terms-of-service" className="hover:text-white">
               Terms of Service
             </Link>
           </div>
