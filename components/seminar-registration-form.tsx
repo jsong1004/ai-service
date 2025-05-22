@@ -1,25 +1,24 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { toast } from "sonner"
 import { CalendarDays, Clock } from "lucide-react"
 import { SuccessMessage } from "@/components/ui/success-message"
 import { FormCard } from "@/components/ui/form-card"
+import { LoadingButton } from "@/components/ui/loading-button"
+import { FormError } from "@/components/ui/form-error"
+import { apiRequest } from "@/lib/api-utils"
+import { ApiResponse, SeminarRegistrationFormData, FormProps } from "@/types"
 
-interface SeminarRegistrationFormProps {
-  onSuccess?: () => void
-}
-
-export default function SeminarRegistrationForm({ onSuccess }: SeminarRegistrationFormProps) {
+export default function SeminarRegistrationForm({ onSuccess }: FormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
-  const [formData, setFormData] = useState({
+  const [error, setError] = useState<string | null>(null)
+
+  const [formData, setFormData] = useState<SeminarRegistrationFormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -31,19 +30,10 @@ export default function SeminarRegistrationForm({ onSuccess }: SeminarRegistrati
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
     
     try {
-      const response = await fetch('/api/seminar-registration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (!response.ok) {
-        throw new Error('Registration failed')
-      }
+      await apiRequest<SeminarRegistrationFormData, ApiResponse>('/api/seminar-registration', 'POST', formData)
 
       // Set success state
       setIsSuccess(true)
@@ -59,14 +49,13 @@ export default function SeminarRegistrationForm({ onSuccess }: SeminarRegistrati
       })
       
       // Close the form after a delay to show success message
-      setTimeout(() => {
-        if (onSuccess) {
+      if (onSuccess) {
+        setTimeout(() => {
           onSuccess()
-        }
-      }, 3000)
-    } catch (error) {
-      console.error("Registration error:", error)
-      toast.error("Registration failed. Please try again or contact us directly.")
+        }, 3000)
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Registration failed. Please try again or contact us directly.")
     } finally {
       setIsSubmitting(false)
     }
@@ -108,6 +97,7 @@ export default function SeminarRegistrationForm({ onSuccess }: SeminarRegistrati
       }
     >
         <form onSubmit={handleSubmit} className="space-y-6">
+          <FormError error={error} />
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Contact Information</h3>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -192,9 +182,15 @@ export default function SeminarRegistrationForm({ onSuccess }: SeminarRegistrati
             </div>
           </div>
 
-          <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-            {isSubmitting ? "Registering..." : "Register Now"}
-          </Button>
+          <LoadingButton 
+            type="submit" 
+            className="w-full" 
+            size="lg"
+            isLoading={isSubmitting}
+            loadingText="Registering..."
+          >
+            Register Now
+          </LoadingButton>
 
           <p className="text-sm text-gray-500 text-center">
             We respect your privacy and will not share your information. For any questions, 

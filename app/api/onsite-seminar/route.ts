@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
+interface OnsiteSeminarFormData {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  companyName: string
+  attendanceCount: string
+  preferredDate?: string
+  additionalNotes?: string
+}
+
 // Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -14,7 +25,7 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.json()
+    const formData: OnsiteSeminarFormData = await request.json()
     const { 
       firstName, 
       lastName, 

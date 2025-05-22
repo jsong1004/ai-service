@@ -2,6 +2,18 @@ import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { format } from 'date-fns'
 
+interface ConsultationFormData {
+  name: string
+  email: string
+  phone?: string
+  company: string
+  serviceInterest: 'workshop' | 'build' | 'managed'
+  message: string
+  preferredContact: 'email' | 'phone'
+  preferredDate: string | Date
+  preferredTime: 'morning' | 'afternoon' | 'evening'
+}
+
 // Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -15,7 +27,7 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.json()
+    const formData: ConsultationFormData = await request.json()
     const { 
       name, 
       email, 

@@ -12,8 +12,8 @@ export default function PricingSection() {
   const pricingPlans = [
     {
       title: "AI Automation Workshop",
-      price: "$200",
-      unit: "per hour",
+      price: "$100",
+      unit: "per 30 minutes",
       description:
         "Not just another AI workshop with demo projects. We guide you to build real automation for your business processes.",
       features: [

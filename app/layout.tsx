@@ -2,9 +2,15 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: 'AI Business Automation Consulting | Startup Consulting Inc.',
+  description: 'Transform your business with AI automation. Expert workshops, custom builds, and managed services. Get started with a free consultation.',
+  keywords: 'AI automation, business consulting, machine learning, process automation',
+  openGraph: {
+    title: 'AI Business Automation Consulting',
+    description: 'Transform your business with AI automation solutions',
+    url: 'https://koreatous.com',
+    images: ['/images/logo-wo-text.jpg'],
+  },
 }
 
 export default function RootLayout({

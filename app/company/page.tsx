@@ -1,12 +1,8 @@
 import React from "react"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
 
 export default function CompanyPage() {
   return (
-    <>
-      <Header />
-      <main className="bg-background text-foreground min-h-screen py-12">
+    <main className="bg-background text-foreground min-h-screen py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <section className="mb-12">
             <h1 className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-gray-900 dark:text-white">Startup Consulting Inc.</h1>
@@ -76,7 +72,5 @@ export default function CompanyPage() {
           </section>
         </div>
       </main>
-      <Footer />
-    </>
   )
 } 

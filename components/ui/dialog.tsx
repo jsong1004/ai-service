@@ -43,6 +43,11 @@ const DialogContent = React.forwardRef<
       )}
       {...props}
     >
+      {/*
+        For accessibility, always include a <DialogTitle> as a child of DialogContent.
+        If you want to visually hide the title, wrap it in a <span className="sr-only">...</span>.
+        See: https://radix-ui.com/primitives/docs/components/dialog
+      */}
       {children}
       <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
         <X className="h-4 w-4" />

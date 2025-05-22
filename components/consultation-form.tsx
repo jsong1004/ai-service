@@ -1,15 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { CalendarIcon, CheckCircle2, Loader2 } from "lucide-react"
+import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -18,9 +16,12 @@ import { Textarea } from "@/components/ui/textarea"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import { SuccessMessage } from "@/components/ui/success-message"
 import { FormCard } from "@/components/ui/form-card"
+import { LoadingButton } from "@/components/ui/loading-button"
+import { FormError } from "@/components/ui/form-error"
+import { apiRequest } from "@/lib/api-utils"
+import { ApiResponse, ConsultationFormData, FormProps } from "@/types"
 // Using API route instead of server actions
 
 const formSchema = z.object({
@@ -43,14 +44,9 @@ const formSchema = z.object({
   }),
 })
 
-type FormValues = z.infer<typeof formSchema>
+type FormValues = ConsultationFormData
 
-interface ConsultationFormProps {
-  onSuccess?: () => void
-}
-
-export default function ConsultationForm({ onSuccess }: ConsultationFormProps = {}) {
-  const router = useRouter()
+export default function ConsultationForm({ onSuccess }: FormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -75,18 +71,8 @@ export default function ConsultationForm({ onSuccess }: ConsultationFormProps = 
     setError(null)
 
     try {
-      // Send the form data to the API route
-      const response = await fetch('/api/consultation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to send consultation request')
-      }
+      // Send the form data to the API route using utility function
+      const result = await apiRequest<FormValues, ApiResponse>('/api/consultation', 'POST', data)
 
       setIsSuccess(true)
       form.reset()
@@ -98,7 +84,6 @@ export default function ConsultationForm({ onSuccess }: ConsultationFormProps = 
         }, 3000)
       }
     } catch (err) {
-      console.error("Error submitting form:", err)
       setError(err instanceof Error ? err.message : "There was an error submitting your request. Please try again.")
     } finally {
       setIsSubmitting(false)
@@ -125,11 +110,7 @@ export default function ConsultationForm({ onSuccess }: ConsultationFormProps = 
       }
     >
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {error && (
-            <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
+          <FormError error={error} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -293,16 +274,14 @@ export default function ConsultationForm({ onSuccess }: ConsultationFormProps = 
             </div>
           </div>
 
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Submitting...
-              </>
-            ) : (
-              "Schedule Consultation"
-            )}
-          </Button>
+          <LoadingButton 
+            type="submit" 
+            className="w-full" 
+            isLoading={isSubmitting}
+            loadingText="Submitting..."
+          >
+            Schedule Consultation
+          </LoadingButton>
           <p className="text-sm text-gray-500 text-center">
             We respect your privacy and will not share your information. For any questions, 
             please contact us at info@koreatous.com

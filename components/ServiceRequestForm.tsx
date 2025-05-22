@@ -4,15 +4,16 @@ import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import { SuccessMessage } from "@/components/ui/success-message"
 import { FormCard } from "@/components/ui/form-card"
+import { LoadingButton } from "@/components/ui/loading-button"
+import { FormError } from "@/components/ui/form-error"
+import { apiRequest } from "@/lib/api-utils"
+import { ApiResponse, ServiceRequestFormData, FormProps } from "@/types"
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -23,11 +24,10 @@ const formSchema = z.object({
   serviceDetail: z.string().min(10, { message: "Service request detail must be at least 10 characters" }),
 })
 
-type FormValues = z.infer<typeof formSchema>
+type FormValues = ServiceRequestFormData
 
-interface ServiceRequestFormProps {
-  serviceInterest: string
-  onSuccess?: () => void
+interface ServiceRequestFormProps extends FormProps {
+  serviceInterest: string;
 }
 
 export default function ServiceRequestForm({ serviceInterest, onSuccess }: ServiceRequestFormProps) {
@@ -51,16 +51,8 @@ export default function ServiceRequestForm({ serviceInterest, onSuccess }: Servi
     setIsSubmitting(true)
     setError(null)
     try {
-      const response = await fetch('/api/service-request', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-      if (!response.ok) {
-        throw new Error('Failed to send service request')
-      }
+      await apiRequest<FormValues, ApiResponse>('/api/service-request', 'POST', data)
+      
       setIsSuccess(true)
       form.reset()
       if (onSuccess) {
@@ -95,11 +87,7 @@ export default function ServiceRequestForm({ serviceInterest, onSuccess }: Servi
       }
     >
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {error && (
-            <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
+          <FormError error={error} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="name">
@@ -153,16 +141,14 @@ export default function ServiceRequestForm({ serviceInterest, onSuccess }: Servi
               <p className="text-sm text-red-500">{form.formState.errors.serviceDetail.message}</p>
             )}
           </div>
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Submitting...
-              </>
-            ) : (
-              "Service Request"
-            )}
-          </Button>
+          <LoadingButton 
+            type="submit" 
+            className="w-full" 
+            isLoading={isSubmitting}
+            loadingText="Submitting..."
+          >
+            Submit Service Request
+          </LoadingButton>
           <p className="text-sm text-gray-500 text-center">
             We respect your privacy and will not share your information. For any questions, 
             please contact us at info@koreatous.com

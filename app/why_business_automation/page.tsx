@@ -1,11 +1,7 @@
-import Header from "@/components/header"
-import Footer from "@/components/footer"
 
 export default function WhyBusinessAutomationPage() {
   return (
-    <>
-      <Header />
-      <main className="bg-background text-foreground min-h-screen py-12">
+    <main className="bg-background text-foreground min-h-screen py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
           <h1 className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-gray-900 dark:text-white">Staying competitive, Working smarter, not just harder.</h1>
           <div className="h-1 w-16 bg-indigo-500 rounded mb-8 mx-auto" />
@@ -70,7 +66,5 @@ export default function WhyBusinessAutomationPage() {
           </ul>
         </div>
       </main>
-      <Footer />
-    </>
   )
 } 

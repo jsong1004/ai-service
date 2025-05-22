@@ -1,12 +1,8 @@
 import React from "react"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
 
 export default function FounderPage() {
   return (
-    <>
-      <Header />
-      <main className="bg-background text-foreground min-h-screen py-12">
+    <main className="bg-background text-foreground min-h-screen py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <section className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-16 mb-12">
             {/* Profile Circle */}
@@ -60,7 +56,5 @@ export default function FounderPage() {
           </section>
         </div>
       </main>
-      <Footer />
-    </>
   )
 } 

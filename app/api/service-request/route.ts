@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
+interface ServiceRequestFormData {
+  name: string
+  email: string
+  phone?: string
+  company: string
+  serviceInterest: string
+  serviceDetail: string
+}
+
 export async function POST(request: Request) {
   try {
-    const formData = await request.json()
+    const formData: ServiceRequestFormData = await request.json()
     const { name, email, phone, company, serviceInterest, serviceDetail } = formData
 
     // Set up nodemailer transporter

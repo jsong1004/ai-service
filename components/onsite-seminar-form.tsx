@@ -1,23 +1,22 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { toast } from "sonner"
 import { SuccessMessage } from "@/components/ui/success-message"
 import { FormCard } from "@/components/ui/form-card"
+import { LoadingButton } from "@/components/ui/loading-button"
+import { FormError } from "@/components/ui/form-error"
+import { apiRequest } from "@/lib/api-utils"
+import { ApiResponse, OnsiteSeminarFormData, FormProps } from "@/types"
 
-interface OnsiteSeminarFormProps {
-  onSuccess?: () => void
-}
-
-export default function OnsiteSeminarForm({ onSuccess }: OnsiteSeminarFormProps) {
+export default function OnsiteSeminarForm({ onSuccess }: FormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
-  const [formData, setFormData] = useState({
+  const [error, setError] = useState<string | null>(null)
+
+  const [formData, setFormData] = useState<OnsiteSeminarFormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -31,18 +30,10 @@ export default function OnsiteSeminarForm({ onSuccess }: OnsiteSeminarFormProps)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
+    
     try {
-      const response = await fetch('/api/onsite-seminar', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-      
-      if (!response.ok) {
-        throw new Error('Failed to submit request')
-      }
+      await apiRequest<OnsiteSeminarFormData, ApiResponse>('/api/onsite-seminar', 'POST', formData)
       
       // Set success state instead of closing immediately
       setIsSuccess(true)
@@ -60,12 +51,13 @@ export default function OnsiteSeminarForm({ onSuccess }: OnsiteSeminarFormProps)
       })
       
       // Close the form after a delay to show success message
-      setTimeout(() => {
-        onSuccess?.()
-      }, 3000)
-    } catch (error) {
-      console.error("On-site seminar request error:", error)
-      toast.error("Failed to submit request. Please try again or contact us directly.")
+      if (onSuccess) {
+        setTimeout(() => {
+          onSuccess()
+        }, 3000)
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to submit request. Please try again or contact us directly.")
     } finally {
       setIsSubmitting(false)
     }
@@ -86,9 +78,10 @@ export default function OnsiteSeminarForm({ onSuccess }: OnsiteSeminarFormProps)
   return (
     <FormCard 
       title="Request On-site AI Seminar"
-      description="Bring our AI expertise to your company! Fill out this form to request an on-site seminar tailored to your team's needs and schedule."
+      description="Bring our AI expertise to your company! Fill out this form to request an on-site seminar tailored to your team's needs and schedule. Free only when the seminar takes in the Greater Seattle area; otherwise, travel expense will be charged."
     >
         <form onSubmit={handleSubmit} className="space-y-6">
+          <FormError error={error} />
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Contact Information</h3>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -177,9 +170,15 @@ export default function OnsiteSeminarForm({ onSuccess }: OnsiteSeminarFormProps)
             </div>
           </div>
 
-          <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+          <LoadingButton 
+            type="submit" 
+            className="w-full" 
+            size="lg"
+            isLoading={isSubmitting}
+            loadingText="Submitting..."
+          >
             Submit Request
-          </Button>
+          </LoadingButton>
 
           <p className="text-sm text-gray-500 text-center">
             We respect your privacy and will not share your information. For any questions, 

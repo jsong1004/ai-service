@@ -2,6 +2,20 @@ import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import ical from 'ical-generator'
 
+interface SeminarFormData {
+  firstName: string
+  lastName: string
+  email: string
+  experienceLevel: string
+  currentTools: string
+  learningGoals: string
+}
+
+interface AttendeeInfo {
+  name: string
+  email: string
+}
+
 // Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -14,7 +28,7 @@ const transporter = nodemailer.createTransport({
 })
 
 // Create calendar event
-const createCalendarEvent = (attendee: { name: string; email: string }) => {
+const createCalendarEvent = (attendee: AttendeeInfo) => {
   const calendar = ical({ name: 'AI Seminar Registration' })
   
   const event = calendar.createEvent({
@@ -40,7 +54,7 @@ const createCalendarEvent = (attendee: { name: string; email: string }) => {
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.json()
+    const formData: SeminarFormData = await request.json()
     const { firstName, lastName, email, experienceLevel, currentTools, learningGoals } = formData
 
     // Create calendar events
