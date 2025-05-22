@@ -1,0 +1,329 @@
+"use client"
+
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { CalendarIcon, CheckCircle2, Loader2 } from "lucide-react"
+import { format } from "date-fns"
+
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { Calendar } from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+// Using API route instead of server actions
+
+const formSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  phone: z.string().optional(),
+  company: z.string().min(1, { message: "Company name is required" }),
+  serviceInterest: z.enum(["general", "workshop", "build", "managed"], {
+    required_error: "Please select a service",
+  }),
+  message: z.string().min(10, { message: "Message must be at least 10 characters" }),
+  preferredContact: z.enum(["email", "phone"], {
+    required_error: "Please select a preferred contact method",
+  }),
+  preferredDate: z.date({
+    required_error: "Please select a preferred date",
+  }),
+  preferredTime: z.enum(["morning", "afternoon", "evening"], {
+    required_error: "Please select a preferred time",
+  }),
+})
+
+type FormValues = z.infer<typeof formSchema>
+
+interface ConsultationFormProps {
+  onSuccess?: () => void
+}
+
+export default function ConsultationForm({ onSuccess }: ConsultationFormProps = {}) {
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      message: "",
+      preferredContact: "email",
+      preferredTime: "morning",
+      serviceInterest: "workshop",
+      preferredDate: undefined,
+    },
+  })
+
+  async function onSubmit(data: FormValues) {
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      // Send the form data to the API route
+      const response = await fetch('/api/consultation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to send consultation request')
+      }
+
+      setIsSuccess(true)
+      form.reset()
+      
+      // If in dialog, close after a delay
+      if (onSuccess) {
+        setTimeout(() => {
+          onSuccess()
+        }, 3000)
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err)
+      setError(err instanceof Error ? err.message : "There was an error submitting your request. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  if (isSuccess) {
+    return (
+      <Card className="w-full max-w-2xl mx-auto">
+        <CardContent className="pt-6">
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Consultation Request Sent!</h2>
+            <p className="text-gray-600 mb-6 max-w-md">
+              Thank you for your interest. We've received your consultation request and will contact you within 24
+              hours.
+            </p>
+            {onSuccess && (
+              <p className="text-sm text-gray-500">Closing this form in 3 seconds...</p>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  return (
+    <Card className="w-full max-w-2xl mx-auto">
+      <CardHeader>
+        <CardTitle>Request a Free AI Consultation</CardTitle>
+        <CardDescription className="space-y-4">
+          <p>
+            Get expert advice on how AI can transform your business. Fill out the form below to schedule a free consultation with our team. We'll discuss your needs, answer your questions, and help you plan your next steps with AI.
+          </p>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          {error && (
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="name">
+                Full Name <span className="text-red-500">*</span>
+              </Label>
+              <Input id="name" placeholder="John Doe" {...form.register("name")} />
+              {form.formState.errors.name && (
+                <p className="text-sm text-red-500">{form.formState.errors.name.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">
+                Email <span className="text-red-500">*</span>
+              </Label>
+              <Input id="email" type="email" placeholder="john@example.com" {...form.register("email")} />
+              {form.formState.errors.email && (
+                <p className="text-sm text-red-500">{form.formState.errors.email.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="phone">Phone Number (Optional)</Label>
+              <Input id="phone" placeholder="+1 (555) 123-4567" {...form.register("phone")} />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="company">
+                Company Name <span className="text-red-500">*</span>
+              </Label>
+              <Input id="company" placeholder="Acme Inc." {...form.register("company")} />
+              {form.formState.errors.company && (
+                <p className="text-sm text-red-500">{form.formState.errors.company.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="serviceInterest">
+              Service Interest <span className="text-red-500">*</span>
+            </Label>
+            <Select
+              onValueChange={(value) => form.setValue("serviceInterest", value as "general" | "workshop" | "build" | "managed")}
+              defaultValue={form.getValues("serviceInterest")}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select a service" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="general">General</SelectItem>
+                <SelectItem value="workshop">AI Automation Workshop ($200/hour)</SelectItem>
+                <SelectItem value="build">AI Automation Build ($500/hour)</SelectItem>
+                <SelectItem value="managed">Managed AI Service ($1000/project)</SelectItem>
+              </SelectContent>
+            </Select>
+            {form.formState.errors.serviceInterest && (
+              <p className="text-sm text-red-500">{form.formState.errors.serviceInterest.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="message">
+              Message <span className="text-red-500">*</span>
+            </Label>
+            <Textarea
+              id="message"
+              placeholder="Please describe your business needs and what you hope to achieve with AI automation..."
+              rows={5}
+              {...form.register("message")}
+            />
+            {form.formState.errors.message && (
+              <p className="text-sm text-red-500">{form.formState.errors.message.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label>
+              Preferred Contact Method <span className="text-red-500">*</span>
+            </Label>
+            <RadioGroup
+              defaultValue={form.getValues("preferredContact")}
+              onValueChange={(value) => form.setValue("preferredContact", value as "email" | "phone")}
+              className="flex space-x-4"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="email" id="email-contact" />
+                <Label htmlFor="email-contact" className="cursor-pointer">
+                  Email
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="phone" id="phone-contact" />
+                <Label htmlFor="phone-contact" className="cursor-pointer">
+                  Phone
+                </Label>
+              </div>
+            </RadioGroup>
+            {form.formState.errors.preferredContact && (
+              <p className="text-sm text-red-500">{form.formState.errors.preferredContact.message}</p>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label>
+                Preferred Date <span className="text-red-500">*</span>
+              </Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !form.watch("preferredDate") && "text-muted-foreground",
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {form.watch("preferredDate") ? (
+                      format(form.watch("preferredDate"), "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={form.watch("preferredDate")}
+                    onSelect={(date) => date && form.setValue("preferredDate", date, { shouldValidate: true })}
+                    disabled={(date) => date < new Date()}
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
+              {form.formState.errors.preferredDate && (
+                <p className="text-sm text-red-500">{form.formState.errors.preferredDate.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="preferredTime">
+                Preferred Time <span className="text-red-500">*</span>
+              </Label>
+              <Select
+                onValueChange={(value) => form.setValue("preferredTime", value as "morning" | "afternoon" | "evening")}
+                defaultValue={form.getValues("preferredTime")}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a time" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="morning">Morning (9am-12pm)</SelectItem>
+                  <SelectItem value="afternoon">Afternoon (12pm-5pm)</SelectItem>
+                  <SelectItem value="evening">Evening (5pm-8pm)</SelectItem>
+                </SelectContent>
+              </Select>
+              {form.formState.errors.preferredTime && (
+                <p className="text-sm text-red-500">{form.formState.errors.preferredTime.message}</p>
+              )}
+            </div>
+          </div>
+
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Submitting...
+              </>
+            ) : (
+              "Schedule Consultation"
+            )}
+          </Button>
+          <p className="text-sm text-gray-500 text-center">
+            We respect your privacy and will not share your information. For any questions, 
+            please contact us at info@koreatous.com
+          </p>
+        </form>
+      </CardContent>
+    </Card>
+  )
+}
