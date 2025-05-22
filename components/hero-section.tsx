@@ -23,7 +23,7 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Dialog open={isConsultationOpen} onOpenChange={setIsConsultationOpen}>
                 <DialogTrigger asChild>
-                  <Button size="lg" className="text-lg px-8" onClick={() => setIsConsultationOpen(true)}>
+                  <Button size="lg" className="text-lg" onClick={() => setIsConsultationOpen(true)}>
                     Get Started
                   </Button>
                 </DialogTrigger>
@@ -31,9 +31,7 @@ export default function HeroSection() {
                   <ConsultationForm onSuccess={() => setIsConsultationOpen(false)} />
                 </DialogContent>
               </Dialog>
-              <Button size="lg" variant="outline" className="text-lg px-8">
-                Learn More
-              </Button>
+
             </div>
           </div>
           <div className="relative flex justify-center lg:justify-end">

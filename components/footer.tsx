@@ -14,7 +14,7 @@ export default function Footer() {
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="https://www.linkedin.com/company/75661993/admin/dashboard/" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+              <Link href="https://www.linkedin.com/company/75661993/" target="_blank" rel="noopener noreferrer" className="hover:text-white">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
@@ -68,11 +68,7 @@ export default function Footer() {
                   Case Studies
                 </Link>
               </li>
-              <li>
-                <Link href="#" className="hover:text-white">
-                  Careers
-                </Link>
-              </li>
+
               <li>
                 <Link href="#" className="hover:text-white">
                   Blog
@@ -86,16 +82,11 @@ export default function Footer() {
             <ul className="space-y-2">
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2" />
-                <a href="mailto:info@startupconsulting.com" className="hover:text-white">
-                  info@startupconsulting.com
+                <a href="mailto:jsong@koreatous.com" className="hover:text-white">
+                  info@koreatous.com
                 </a>
               </li>
-              <li className="flex items-center">
-                <Phone className="h-5 w-5 mr-2" />
-                <a href="tel:+1234567890" className="hover:text-white">
-                  +1 (234) 567-890
-                </a>
-              </li>
+
             </ul>
           </div>
         </div>

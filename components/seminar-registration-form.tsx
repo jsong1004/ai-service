@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "sonner"
 import { CalendarDays, Clock } from "lucide-react"
+import { SuccessMessage } from "@/components/ui/success-message"
+import { FormCard } from "@/components/ui/form-card"
 
 interface SeminarRegistrationFormProps {
   onSuccess?: () => void
@@ -73,32 +75,20 @@ export default function SeminarRegistrationForm({ onSuccess }: SeminarRegistrati
   // Success state UI
   if (isSuccess) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
-        <CardContent className="pt-6">
-          <div className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Registration Successful!</h2>
-            <p className="text-gray-600 mb-6 max-w-md">
-              Thank you for registering for our free AI seminar. Please check your email for the confirmation and calendar invitation.
-            </p>
-            <p className="text-sm text-gray-500">Closing this form in 3 seconds...</p>
-          </div>
-        </CardContent>
-      </Card>
+      <SuccessMessage
+        title="Registration Successful!"
+        message="Thank you for registering for our free AI seminar. Please check your email for the confirmation and calendar invitation."
+        showClosingMessage={true}
+      />
     )
   }
 
   // Regular form UI
   return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
-        <CardTitle>Register for Our Free Seminar on AI!</CardTitle>
-        <CardDescription className="space-y-4">
+    <FormCard 
+      title="Register for Our Free Seminar on AI!"
+      description={
+        <>
           <p>
             Join us for an insightful session where you'll learn about AI overview, current applications, 
             future trends, and practical implementation strategies. Whether you're new to AI or looking to 
@@ -114,9 +104,9 @@ export default function SeminarRegistrationForm({ onSuccess }: SeminarRegistrati
               <span>11:00 AM Pacific Time</span>
             </div>
           </div>
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+        </>
+      }
+    >
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Contact Information</h3>
@@ -211,7 +201,6 @@ export default function SeminarRegistrationForm({ onSuccess }: SeminarRegistrati
             please contact us at info@koreatous.com
           </p>
         </form>
-      </CardContent>
-    </Card>
+    </FormCard>
   )
 } 

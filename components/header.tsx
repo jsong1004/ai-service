@@ -29,24 +29,11 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="#features" className="text-sm font-medium text-white hover:text-gray-200">
-              Features
-            </Link>
             {SHOW_TESTIMONIALS && (
               <Link href="#testimonials" className="text-sm font-medium text-white hover:text-gray-200">
                 Testimonials
               </Link>
             )}
-            <Link href="#pricing" className="text-sm font-medium text-white hover:text-gray-200">
-              Pricing
-            </Link>
-            <button
-              type="button"
-              className="text-sm font-medium text-white hover:text-gray-200 focus:outline-none"
-              onClick={() => setIsConsultationOpen(true)}
-            >
-              Contact
-            </button>
           </nav>
 
           {/* Social Media Links */}
@@ -90,13 +77,6 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden bg-black text-white">
           <div className="space-y-1 px-2 pb-3 pt-2">
-            <Link
-              href="#features"
-              className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-gray-200"
-              onClick={toggleMenu}
-            >
-              Features
-            </Link>
             {SHOW_TESTIMONIALS && (
               <Link
                 href="#testimonials"
@@ -106,23 +86,6 @@ export default function Header() {
                 Testimonials
               </Link>
             )}
-            <Link
-              href="#pricing"
-              className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-gray-200"
-              onClick={toggleMenu}
-            >
-              Pricing
-            </Link>
-            <button
-              type="button"
-              className="block w-full rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-800 hover:text-gray-200 text-left focus:outline-none"
-              onClick={() => {
-                setIsConsultationOpen(true)
-                setIsMenuOpen(false)
-              }}
-            >
-              Contact
-            </button>
             {/* Social Media Links for Mobile */}
             <div className="flex items-center space-x-4 mt-4 px-3">
               <a href="https://www.facebook.com/usa.startup.consulting" target="_blank" rel="noopener noreferrer" aria-label="Facebook">

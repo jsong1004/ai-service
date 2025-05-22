@@ -7,6 +7,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "sonner"
+import { SuccessMessage } from "@/components/ui/success-message"
+import { FormCard } from "@/components/ui/form-card"
 
 interface OnsiteSeminarFormProps {
   onSuccess?: () => void
@@ -72,37 +74,20 @@ export default function OnsiteSeminarForm({ onSuccess }: OnsiteSeminarFormProps)
   // Success state UI
   if (isSuccess) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
-        <CardContent className="pt-6">
-          <div className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Request Sent Successfully!</h2>
-            <p className="text-gray-600 mb-6 max-w-md">
-              Thank you for your interest in our on-site AI seminar. We'll review your request and contact you within 2 business days.
-            </p>
-            <p className="text-sm text-gray-500">Closing this form in 3 seconds...</p>
-          </div>
-        </CardContent>
-      </Card>
+      <SuccessMessage
+        title="Request Sent Successfully!"
+        message="Thank you for your interest in our on-site AI seminar. We'll review your request and contact you within 2 business days."
+        showClosingMessage={true}
+      />
     )
   }
 
   // Regular form UI
   return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
-        <CardTitle>Request On-site AI Seminar</CardTitle>
-        <CardDescription>
-          Bring our AI expertise to your company! Fill out this form to request an on-site seminar 
-          tailored to your team's needs and schedule.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <FormCard 
+      title="Request On-site AI Seminar"
+      description="Bring our AI expertise to your company! Fill out this form to request an on-site seminar tailored to your team's needs and schedule."
+    >
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Contact Information</h3>
@@ -201,7 +186,6 @@ export default function OnsiteSeminarForm({ onSuccess }: OnsiteSeminarFormProps)
             please contact us at info@koreatous.com
           </p>
         </form>
-      </CardContent>
-    </Card>
+    </FormCard>
   )
 } 

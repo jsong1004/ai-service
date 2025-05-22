@@ -107,8 +107,8 @@ export default function PricingSection() {
                 <Dialog open={openIndex === index} onOpenChange={(open) => setOpenIndex(open ? index : null)}>
                   <DialogTrigger asChild>
                     <Button
-                      className={`w-full ${plan.title === "Managed AI Service" ? "border-2 border-[#5B4FFF] text-[#5B4FFF] font-bold text-lg bg-white hover:bg-blue-50" : plan.highlighted ? "bg-blue-600 hover:bg-blue-700" : ""}`}
-                      variant={plan.title === "Managed AI Service" ? "outline" : plan.highlighted ? "default" : "outline"}
+                      className={`w-full text-lg ${plan.highlighted ? "font-medium" : ""}`}
+                      variant={plan.highlighted ? "default" : "outline"}
                     >
                       Select
                     </Button>
