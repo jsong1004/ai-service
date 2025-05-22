@@ -7,7 +7,7 @@ export default function WhyBusinessAutomationPage() {
       <Header />
       <main className="bg-background text-foreground min-h-screen py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-gray-900 dark:text-white">Revolutionize Your Business with AI-Powered Automation</h1>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-gray-900 dark:text-white">Staying competitive, Working smarter, not just harder.</h1>
           <div className="h-1 w-16 bg-indigo-500 rounded mb-8 mx-auto" />
           <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 text-center">
             In today's fast-paced digital landscape, staying competitive means working smarter, not just harder. Discover how Artificial Intelligence (AI) is transforming business automation, unlocking unprecedented levels of efficiency, innovation, and growth.
