@@ -31,7 +31,11 @@ export default function HeroSection() {
                   <ConsultationForm onSuccess={() => setIsConsultationOpen(false)} />
                 </DialogContent>
               </Dialog>
-
+              <a href="/why_business_automation">
+                <Button size="lg" variant="outline" className="text-lg">
+                  Learn More
+                </Button>
+              </a>
             </div>
           </div>
           <div className="relative flex justify-center lg:justify-end">
