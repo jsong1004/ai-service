@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react"
 import { SHOW_TESTIMONIALS } from "@/app/page"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import ConsultationForm from "./consultation-form"
+import { FaFacebook, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -47,6 +48,22 @@ export default function Header() {
               Contact
             </button>
           </nav>
+
+          {/* Social Media Links */}
+          <div className="flex items-center space-x-4 ml-4">
+            <a href="https://www.facebook.com/usa.startup.consulting" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <FaFacebook className="w-5 h-5 text-white hover:text-blue-400 transition" />
+            </a>
+            <a href="https://www.linkedin.com/company/75661993/admin/dashboard/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <FaLinkedin className="w-5 h-5 text-white hover:text-blue-300 transition" />
+            </a>
+            <a href="https://x.com/JaeheeSong1004" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <FaTwitter className="w-5 h-5 text-white hover:text-blue-200 transition" />
+            </a>
+            <a href="https://www.instagram.com/knft82/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <FaInstagram className="w-5 h-5 text-white hover:text-pink-400 transition" />
+            </a>
+          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -106,6 +123,21 @@ export default function Header() {
             >
               Contact
             </button>
+            {/* Social Media Links for Mobile */}
+            <div className="flex items-center space-x-4 mt-4 px-3">
+              <a href="https://www.facebook.com/usa.startup.consulting" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <FaFacebook className="w-5 h-5 text-white hover:text-blue-400 transition" />
+              </a>
+              <a href="https://www.linkedin.com/company/75661993/admin/dashboard/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <FaLinkedin className="w-5 h-5 text-white hover:text-blue-300 transition" />
+              </a>
+              <a href="https://x.com/JaeheeSong1004" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                <FaTwitter className="w-5 h-5 text-white hover:text-blue-200 transition" />
+              </a>
+              <a href="https://www.instagram.com/knft82/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <FaInstagram className="w-5 h-5 text-white hover:text-pink-400 transition" />
+              </a>
+            </div>
           </div>
         </div>
       )}

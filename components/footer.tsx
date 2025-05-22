@@ -10,21 +10,21 @@ export default function Footer() {
             <h3 className="text-xl font-bold text-white mb-4">Startup Consulting Inc.</h3>
             <p className="mb-4">Transforming businesses through AI automation and education.</p>
             <div className="flex space-x-4">
-              <Link href="#" className="hover:text-white">
+              <Link href="https://www.facebook.com/usa.startup.consulting" target="_blank" rel="noopener noreferrer" className="hover:text-white">
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="#" className="hover:text-white">
+              <Link href="https://www.linkedin.com/company/75661993/admin/dashboard/" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                <Linkedin className="h-5 w-5" />
+                <span className="sr-only">LinkedIn</span>
+              </Link>
+              <Link href="https://x.com/JaeheeSong1004" target="_blank" rel="noopener noreferrer" className="hover:text-white">
                 <Twitter className="h-5 w-5" />
                 <span className="sr-only">Twitter</span>
               </Link>
-              <Link href="#" className="hover:text-white">
+              <Link href="https://www.instagram.com/knft82/" target="_blank" rel="noopener noreferrer" className="hover:text-white">
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="#" className="hover:text-white">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
               </Link>
             </div>
           </div>
