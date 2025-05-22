@@ -27,9 +27,6 @@ export default function CtaSection() {
                 <ConsultationForm onSuccess={() => setIsConsultationOpen(false)} />
               </DialogContent>
             </Dialog>
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-blue-700 text-lg px-8">
-              View Demo
-            </Button>
           </div>
         </div>
       </div>
