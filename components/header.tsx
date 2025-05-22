@@ -8,6 +8,7 @@ import { SHOW_TESTIMONIALS } from "@/app/page"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import ConsultationForm from "./consultation-form"
 import { FaFacebook, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa"
+import Image from "next/image"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -23,6 +24,7 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
+              <Image src="/images/logo-wo-text.jpg" alt="Startup Consulting Inc. Logo" width={40} height={40} className="mr-2" />
               <span className="text-xl font-bold text-white">Startup Consulting Inc.</span>
             </Link>
           </div>
