@@ -12,17 +12,19 @@ export const SHOW_TESTIMONIALS = false
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <>
       <Header />
-      <main className="flex-grow">
-        <HeroSection />
-        <SeminarSection />
-        <FeaturesSection />
-        {SHOW_TESTIMONIALS && <TestimonialsSection />}
-        <PricingSection />
-        <CtaSection />
-      </main>
-      <Footer />
-    </div>
+      <div className="min-h-screen flex flex-col">
+        <main className="flex-grow">
+          <HeroSection />
+          <SeminarSection />
+          <FeaturesSection />
+          {SHOW_TESTIMONIALS && <TestimonialsSection />}
+          <PricingSection />
+          <CtaSection />
+        </main>
+        <Footer />
+      </div>
+    </>
   )
 }
