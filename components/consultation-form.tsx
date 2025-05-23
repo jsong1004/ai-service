@@ -162,9 +162,10 @@ export default function ConsultationForm({ onSuccess }: FormProps) {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="general">General</SelectItem>
-                <SelectItem value="workshop">AI Automation Workshop ($200/hour)</SelectItem>
+          
+                <SelectItem value="workshop">AI Automation Workshop ($100/30 minutes)</SelectItem>
                 <SelectItem value="build">AI Automation Build ($500/hour)</SelectItem>
-                <SelectItem value="managed">Managed AI Service ($1000/project)</SelectItem>
+                <SelectItem value="managed">Managed AI Service </SelectItem>
               </SelectContent>
             </Select>
             {form.formState.errors.serviceInterest && (
@@ -187,32 +188,6 @@ export default function ConsultationForm({ onSuccess }: FormProps) {
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label>
-              Preferred Contact Method <span className="text-red-500">*</span>
-            </Label>
-            <RadioGroup
-              defaultValue={form.getValues("preferredContact")}
-              onValueChange={(value) => form.setValue("preferredContact", value as "email" | "phone")}
-              className="flex space-x-4"
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="email" id="email-contact" />
-                <Label htmlFor="email-contact" className="cursor-pointer">
-                  Email
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="phone" id="phone-contact" />
-                <Label htmlFor="phone-contact" className="cursor-pointer">
-                  Phone
-                </Label>
-              </div>
-            </RadioGroup>
-            {form.formState.errors.preferredContact && (
-              <p className="text-sm text-red-500">{form.formState.errors.preferredContact.message}</p>
-            )}
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">

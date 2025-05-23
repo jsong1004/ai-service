@@ -79,22 +79,7 @@ export default function SeminarSection() {
                 <SeminarRegistrationForm onSuccess={() => setIsRegistrationOpen(false)} />
               </DialogContent>
             </Dialog>
-            <div className="w-full pt-4 border-t">
-              <div className="flex items-center gap-2 mb-2">
-                <Building2 className="h-4 w-4" />
-                <span className="text-sm font-medium">Want an on-site seminar?</span>
-              </div>
-              <Dialog open={isOnsiteOpen} onOpenChange={setIsOnsiteOpen}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full">
-                    Request On-site Seminar
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-3xl">
-                  <OnsiteSeminarForm onSuccess={() => setIsOnsiteOpen(false)} />
-                </DialogContent>
-              </Dialog>
-            </div>
+            
             <p className="text-sm text-gray-500 dark:text-gray-400">
               No credit card required
             </p>
