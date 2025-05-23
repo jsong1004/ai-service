@@ -1,0 +1,41 @@
+steps:
+  # 1. Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/myresume-457817/ai-business-automation-landing:latest',
+        '.',
+      ]
+    id: 'Build Docker Image'
+
+  # 2. Push the Docker image to Google Container Registry (GCR)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/myresume-457817/ai-business-automation-landing:latest']
+    id: 'Push to GCR'
+
+  # 3. Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run',
+        'deploy',
+        'ai-business-automation-service', # Replace with your Cloud Run service name
+        '--image',
+        'gcr.io/myresume-457817/ai-business-automation-landing:latest',
+        '--region',
+        'us-central1', # Change to your region if needed
+        '--platform',
+        'managed',
+        '--allow-unauthenticated',
+        # Add your environment variables below
+        # '--set-env-vars=EXAMPLE_KEY=example_value',
+      ]
+    id: 'Deploy to Cloud Run'
+
+images:
+  - 'gcr.io/myresume-457817/ai-business-automation-landing:latest'
+
+timeout: '1200s' # 20 minutes 
