@@ -10,11 +10,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Terms of Service - Startup Consulting Inc.",
     description: "Legal terms and conditions for using our AI automation consulting services",
-    url: "https://koreatous.com/terms-of-service",
+    url: "https://www.ai-biz.app/terms-of-service",
     type: "website"
   },
   alternates: {
-    canonical: "https://koreatous.com/terms-of-service"
+    canonical: "https://www.ai-biz.app/terms-of-service"
   },
   robots: {
     index: true,
@@ -31,13 +31,13 @@ const structuredData = {
   "@type": "WebPage",
   "name": "Terms of Service",
   "description": "Terms of service for Startup Consulting Inc. AI automation services",
-  "url": "https://koreatous.com/terms-of-service",
+  "url": "https://www.ai-biz.app/terms-of-service",
   "dateModified": "2025-05-22",
   "datePublished": "2025-05-22",
   "author": {
     "@type": "Organization",
     "name": "Startup Consulting Inc.",
-    "url": "https://koreatous.com",
+    "url": "https://www.ai-biz.app",
     "contactPoint": {
       "@type": "ContactPoint",
       "email": "info@koreatous.com",
@@ -47,7 +47,7 @@ const structuredData = {
   "publisher": {
     "@type": "Organization",
     "name": "Startup Consulting Inc.",
-    "url": "https://koreatous.com"
+    "url": "https://www.ai-biz.app"
   },
   "breadcrumb": {
     "@type": "BreadcrumbList",
@@ -56,13 +56,13 @@ const structuredData = {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://koreatous.com"
+        "item": "https://www.ai-biz.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Terms of Service",
-        "item": "https://koreatous.com/terms-of-service"
+        "item": "https://www.ai-biz.app/terms-of-service"
       }
     ]
   },
@@ -74,7 +74,7 @@ const structuredData = {
     "provider": {
       "@type": "Organization",
       "name": "Startup Consulting Inc.",
-      "url": "https://koreatous.com"
+      "url": "https://www.ai-biz.app"
     }
   }
 }
@@ -113,7 +113,7 @@ export default function TermsOfServiceLayout({
             <meta itemProp="datePublished" content="2025-05-22" />
             <div itemProp="provider" itemScope itemType="https://schema.org/Organization">
               <meta itemProp="name" content="Startup Consulting Inc." />
-              <meta itemProp="url" content="https://koreatous.com" />
+              <meta itemProp="url" content="https://www.ai-biz.app" />
             </div>
             {children}
           </article>

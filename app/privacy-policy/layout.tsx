@@ -10,11 +10,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Privacy Policy - Startup Consulting Inc.",
     description: "Our commitment to protecting your personal data and privacy rights",
-    url: "https://koreatous.com/privacy-policy",
+    url: "https://www.ai-biz.app/privacy-policy",
     type: "website"
   },
   alternates: {
-    canonical: "https://koreatous.com/privacy-policy"
+    canonical: "https://www.ai-biz.app/privacy-policy"
   },
   robots: {
     index: true,
@@ -31,18 +31,18 @@ const structuredData = {
   "@type": "WebPage",
   "name": "Privacy Policy",
   "description": "Privacy policy for Startup Consulting Inc.",
-  "url": "https://koreatous.com/privacy-policy",
+  "url": "https://www.ai-biz.app/privacy-policy",
   "dateModified": "2025-05-22",
   "datePublished": "2025-05-22",
   "author": {
     "@type": "Organization",
     "name": "Startup Consulting Inc.",
-    "url": "https://koreatous.com"
+    "url": "https://www.ai-biz.app"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Startup Consulting Inc.",
-    "url": "https://koreatous.com"
+    "url": "https://www.ai-biz.app"
   },
   "breadcrumb": {
     "@type": "BreadcrumbList",
@@ -51,13 +51,13 @@ const structuredData = {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://koreatous.com"
+        "item": "https://www.ai-biz.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Privacy Policy",
-        "item": "https://koreatous.com/privacy-policy"
+        "item": "https://www.ai-biz.app/privacy-policy"
       }
     ]
   },

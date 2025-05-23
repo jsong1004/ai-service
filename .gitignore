@@ -39,3 +39,7 @@ Thumbs.db
 
 # Misc
 *.log
+CLAUDE.MD
+cloudbuild.yaml
+gcloud.sh
+Dockerfile

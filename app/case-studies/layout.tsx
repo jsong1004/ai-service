@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Automation Case Studies - Real Results",
     description: "Discover how businesses transformed with AI automation. View detailed case studies showing ROI, efficiency gains, and success metrics.",
-    url: "https://koreatous.com/case-studies",
+    url: "https://www.ai-biz.app/case-studies",
     type: "website",
     images: [
       {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     images: ["/images/case-studies-twitter.jpg"]
   },
   alternates: {
-    canonical: "https://koreatous.com/case-studies"
+    canonical: "https://www.ai-biz.app/case-studies"
   },
   robots: {
     index: true,
@@ -50,7 +50,7 @@ const structuredData = {
   "@type": "CollectionPage",
   "name": "AI Automation Case Studies",
   "description": "Real-world examples of successful AI automation implementations",
-  "url": "https://koreatous.com/case-studies",
+  "url": "https://www.ai-biz.app/case-studies",
   "mainEntity": {
     "@type": "ItemList",
     "itemListElement": [
@@ -76,13 +76,13 @@ const structuredData = {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://koreatous.com"
+        "item": "https://www.ai-biz.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Case Studies",
-        "item": "https://koreatous.com/case-studies"
+        "item": "https://www.ai-biz.app/case-studies"
       }
     ]
   }

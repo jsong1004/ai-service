@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Startup Consulting Inc.",
     description: "Learn about our premier consulting firm helping Korean startups navigate the North American market",
-    url: "https://koreatous.com",
+    url: "https://www.ai-biz.app",
     type: "website",
     images: [
       {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     images: ["/images/company-twitter.jpg"]
   },
   alternates: {
-    canonical: "https://koreatous.com/company"
+    canonical: "https://www.ai-biz.app/company"
   },
   robots: {
     index: true,
@@ -48,8 +48,8 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Startup Consulting Inc.",
-  "url": "https://koreatous.com",
-  "logo": "https://koreatous.com/logo.png",
+  "url": "https://www.ai-biz.app",
+  "logo": "https://www.ai-biz.app/logo.png",
   "description": "Premier consulting firm helping Korean startups navigate and succeed in the North American market.",
   "foundingDate": "2018",
   "foundingLocation": "Seattle, WA",

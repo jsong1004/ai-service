@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jaehee Song - Founder of Startup Consulting Inc.",
     description: "Meet our founder with 20+ years experience in data architecture and AI development",
-    url: "https://koreatous.com/founder",
+    url: "https://www.ai-biz.app/founder",
     type: "profile",
     images: [
       {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     images: ["/images/founder-twitter.jpg"]
   },
   alternates: {
-    canonical: "https://koreatous.com/founder"
+    canonical: "https://www.ai-biz.app/founder"
   },
   robots: {
     index: true,
@@ -52,7 +52,7 @@ const structuredData = {
   "worksFor": {
     "@type": "Organization",
     "name": "Startup Consulting Inc.",
-    "url": "https://koreatous.com"
+    "url": "https://www.ai-biz.app"
   },
   "description": "Data Platform Architect & AI Solution Developer with over 20 years of experience",
   "knowsAbout": [

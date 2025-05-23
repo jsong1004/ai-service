@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Why AI Business Automation is Essential in Today's Digital Landscape",
     description: "Learn how AI automation can give your business a competitive edge with increased efficiency and innovation",
-    url: "https://koreatous.com/why_business_automation",
+    url: "https://www.ai-biz.app/why_business_automation",
     type: "article",
     images: [
       {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     images: ["/images/why-automation-twitter.jpg"]
   },
   alternates: {
-    canonical: "https://koreatous.com/why_business_automation"
+    canonical: "https://www.ai-biz.app/why_business_automation"
   },
   robots: {
     index: true,
@@ -49,25 +49,25 @@ const structuredData = {
   "@type": "Article",
   "headline": "Why Business Automation Using AI is Essential in Today's Digital Landscape",
   "description": "Discover how AI-powered business automation can transform your organization with increased efficiency, reduced costs, and smarter decision-making.",
-  "image": "https://koreatous.com/images/why-automation-og.jpg",
+  "image": "https://www.ai-biz.app/images/why-automation-og.jpg",
   "datePublished": "2025-05-22",
   "dateModified": "2025-05-22",
   "author": {
     "@type": "Organization",
     "name": "Startup Consulting Inc.",
-    "url": "https://koreatous.com"
+    "url": "https://www.ai-biz.app"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Startup Consulting Inc.",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://koreatous.com/logo.png"
+      "url": "https://www.ai-biz.app/logo.png"
     }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://koreatous.com/why_business_automation"
+    "@id": "https://www.ai-biz.app/why_business_automation"
   },
   "keywords": "business automation, AI automation, digital transformation, operational efficiency, business intelligence, machine learning"
 }
@@ -107,7 +107,7 @@ export default function WhyBusinessAutomationLayout({
             <meta itemProp="dateModified" content="2025-05-22" />
             <div itemProp="publisher" itemScope itemType="https://schema.org/Organization">
               <meta itemProp="name" content="Startup Consulting Inc." />
-              <meta itemProp="url" content="https://koreatous.com" />
+              <meta itemProp="url" content="https://www.ai-biz.app" />
             </div>
             {children}
           </article>

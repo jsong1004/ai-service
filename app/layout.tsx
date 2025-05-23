@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI Business Automation Consulting',
     description: 'Transform your business with AI automation solutions',
-    url: 'https://koreatous.com',
+    url: 'https://www.ai-biz.app',
     images: ['/images/logo-wo-text.jpg'],
   },
 }
