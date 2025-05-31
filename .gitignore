@@ -43,3 +43,4 @@ CLAUDE.MD
 cloudbuild.yaml
 gcloud.sh
 Dockerfile
+.gcloudignore 

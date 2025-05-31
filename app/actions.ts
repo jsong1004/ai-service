@@ -1,7 +1,7 @@
 "use server"
 
 import { z } from "zod"
-import nodemailer from "nodemailer"
+import sgMail from '@sendgrid/mail'
 import { format } from "date-fns"
 
 // Email validation schema
@@ -19,48 +19,12 @@ const emailSchema = z.object({
 
 type EmailData = z.infer<typeof emailSchema>
 
-// Create a transporter using Gmail SMTP
-async function getTransporter() {
-  let testAccount
-  let transporter
-
-  // Check if we have Gmail credentials in environment variables
-  if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
-    // Use Gmail SMTP for production
-    transporter = nodemailer.createTransport({
-      service: "gmail", // Using the built-in Gmail service configuration
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD, // This should be an App Password, not your regular Gmail password
-      },
-    })
-
-    console.log("Using Gmail SMTP server")
-  } else {
-    // For development, use Ethereal (fake SMTP service)
-    testAccount = await nodemailer.createTestAccount()
-    transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-      },
-    })
-
-    console.log("Using Ethereal test account for email")
-  }
-
-  return { transporter, testAccount }
-}
+// Set up SendGrid API key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
 
 export async function sendConsultationEmail(data: EmailData) {
   try {
-    // Validate the data
     const validatedData = emailSchema.parse(data)
-
-    // Format the data for email
     const formattedDate = format(validatedData.preferredDate, "MMMM do, yyyy")
     const formattedTime =
       validatedData.preferredTime === "morning"
@@ -68,18 +32,12 @@ export async function sendConsultationEmail(data: EmailData) {
         : validatedData.preferredTime === "afternoon"
           ? "Afternoon (12pm-5pm)"
           : "Evening (5pm-8pm)"
-
     const formattedService =
       validatedData.serviceInterest === "workshop"
         ? "AI Automation Workshop"
         : validatedData.serviceInterest === "build"
           ? "AI Automation Build"
           : "Managed AI Automation Service"
-
-    // Get the email transporter
-    const { transporter, testAccount } = await getTransporter()
-
-    // Prepare email content
     const emailContent = `
       <h2>New Consultation Request</h2>
       <p><strong>Name:</strong> ${validatedData.name}</p>
@@ -95,35 +53,20 @@ export async function sendConsultationEmail(data: EmailData) {
       <h3>Message:</h3>
       <p>${validatedData.message.replace(/\n/g, "<br>")}</p>
     `
-
-    // Send the email
-    const info = await transporter.sendMail({
-      from: process.env.GMAIL_USER || `"Consultation Form" <noreply@startupconsulting.com>`,
-      to: "info@koreatous.com",
+    // Send to admin
+    await sgMail.send({
+      to: process.env.ADMIN_EMAIL!,
+      from: process.env.ADMIN_EMAIL!,
       subject: `Consultation Request from ${validatedData.name} - ${validatedData.company}`,
       html: emailContent,
-      // Add a text version for email clients that don't support HTML
       text: emailContent.replace(/<[^>]*>/g, ""),
     })
-
-    // For development, log the Ethereal URL to view the email
-    if (testAccount) {
-      console.log("Test email sent. Preview URL: %s", nodemailer.getTestMessageUrl(info))
-      return {
-        success: true,
-        message: "Email sent successfully (test mode)",
-        previewUrl: nodemailer.getTestMessageUrl(info),
-      }
-    }
-
     return {
       success: true,
       message: "Email sent successfully",
-      messageId: info.messageId,
     }
   } catch (error) {
     console.error("Error sending email:", error)
-
     if (error instanceof z.ZodError) {
       return {
         success: false,
@@ -131,7 +74,6 @@ export async function sendConsultationEmail(data: EmailData) {
         errors: error.errors,
       }
     }
-
     return {
       success: false,
       message: "Failed to send email",
@@ -140,38 +82,21 @@ export async function sendConsultationEmail(data: EmailData) {
   }
 }
 
-// Optional: Send a confirmation email to the user
 export async function sendConfirmationEmail(userEmail: string, userName: string) {
   try {
-    const { transporter, testAccount } = await getTransporter()
-
-    const info = await transporter.sendMail({
-      from: process.env.GMAIL_USER || `"Startup Consulting Inc." <noreply@startupconsulting.com>`,
+    await sgMail.send({
       to: userEmail,
+      from: process.env.ADMIN_EMAIL!,
       subject: "We've Received Your Consultation Request",
       html: `
         <h2>Thank you for your consultation request, ${userName}!</h2>
         <p>We've received your request and will get back to you within 24 hours.</p>
-        <p>In the meantime, feel free to explore our <a href="https://yourwebsite.com/resources">resources</a> to learn more about our AI automation solutions.</p>
+        <p>In the meantime, feel free to explore our <a href="https://www.ai-biz.app/resources">resources</a> to learn more about our AI automation solutions.</p>
         <p>Best regards,</p>
-        <p>The Startup Consulting Team</p>
+        <p>The AI Biz Team</p>
       `,
-      text: `
-        Thank you for your consultation request, ${userName}!
-        
-        We've received your request and will get back to you within 24 hours.
-        
-        In the meantime, feel free to explore our resources to learn more about our AI automation solutions: https://yourwebsite.com/resources
-        
-        Best regards,
-        The Startup Consulting Team
-      `,
+      text: `Thank you for your consultation request, ${userName}!\n\nWe've received your request and will get back to you within 24 hours.\n\nIn the meantime, feel free to explore our resources to learn more about our AI automation solutions: https://www.ai-biz.app/resources\n\nBest regards,\nThe AI Biz Team`,
     })
-
-    if (testAccount) {
-      console.log("Test confirmation email sent. Preview URL: %s", nodemailer.getTestMessageUrl(info))
-    }
-
     return { success: true }
   } catch (error) {
     console.error("Error sending confirmation email:", error)

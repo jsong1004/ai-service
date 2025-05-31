@@ -29,15 +29,13 @@ pnpm dev
 ### Environment Variables
 Create a `.env.local` file in the root directory with the following:
 ```
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=465
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-app-specific-password
+SENDGRID_API_KEY=your-sendgrid-api-key
+ADMIN_EMAIL=your-admin-email@example.com
 ```
 
 ### Email Setup
-- For Gmail, generate an App Password and use it for `SMTP_PASSWORD`.
-- Emails are sent for seminar registration, consultation, and service requests.
+- Uses SendGrid API for all transactional emails (seminar registration, consultation, service requests).
+- In production, these secrets are managed via Google Secret Manager and injected automatically by Cloud Build.
 
 ## Project Structure
 - `components/` - React UI components

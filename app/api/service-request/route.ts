@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import sgMail from '@sendgrid/mail'
 
 interface ServiceRequestFormData {
   name: string
@@ -10,26 +10,17 @@ interface ServiceRequestFormData {
   serviceDetail: string
 }
 
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
+
 export async function POST(request: Request) {
   try {
     const formData: ServiceRequestFormData = await request.json()
     const { name, email, phone, company, serviceInterest, serviceDetail } = formData
 
-    // Set up nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: true,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
-      },
-    })
-
     // Email to admin
-    const adminMailOptions = {
-      from: process.env.SMTP_USER,
-      to: 'jsong@koreatous.com',
+    await sgMail.send({
+      to: process.env.ADMIN_EMAIL!,
+      from: process.env.ADMIN_EMAIL!,
       subject: `New Service Request: ${serviceInterest}`,
       html: `
         <h2>New Service Request</h2>
@@ -41,12 +32,12 @@ export async function POST(request: Request) {
         <p><strong>Service Request Detail:</strong></p>
         <p>${serviceDetail}</p>
       `,
-    }
+    })
 
     // Confirmation email to user
-    const userMailOptions = {
-      from: process.env.SMTP_USER,
+    await sgMail.send({
       to: email,
+      from: process.env.ADMIN_EMAIL!,
       subject: `Confirmation: Service Request (${serviceInterest})`,
       html: `
         <h2>Thank you for your service request!</h2>
@@ -63,15 +54,9 @@ export async function POST(request: Request) {
         <p><strong>Service Request Detail:</strong></p>
         <p>${serviceDetail}</p>
         <p>If you have any questions, please contact us at info@koreatous.com</p>
-        <p>Best regards,<br />The KoreaToUS Team</p>
+        <p>Best regards,<br />The AI Biz Team</p>
       `,
-    }
-
-    // Send both emails
-    await Promise.all([
-      transporter.sendMail(adminMailOptions),
-      transporter.sendMail(userMailOptions),
-    ])
+    })
 
     return NextResponse.json({ success: true })
   } catch (error) {

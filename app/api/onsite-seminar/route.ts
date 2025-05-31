@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import sgMail from '@sendgrid/mail'
 
 interface OnsiteSeminarFormData {
   firstName: string
@@ -12,16 +12,7 @@ interface OnsiteSeminarFormData {
   additionalNotes?: string
 }
 
-// Create a transporter using SMTP
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
-  },
-})
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
 
 export async function POST(request: Request) {
   try {
@@ -48,9 +39,9 @@ export async function POST(request: Request) {
       : 'To be determined'
 
     // Email to admin
-    const adminMailOptions = {
-      from: process.env.SMTP_USER,
-      to: 'jsong@koreatous.com',
+    await sgMail.send({
+      to: process.env.ADMIN_EMAIL!,
+      from: process.env.ADMIN_EMAIL!,
       subject: `On-site Seminar Request from ${companyName}`,
       html: `
         <h2>New On-site Seminar Request</h2>
@@ -70,13 +61,13 @@ export async function POST(request: Request) {
         <p><strong>Additional Notes:</strong></p>
         <p>${additionalNotes}</p>
         ` : ''}
-      `
-    }
+      `,
+    })
 
     // Confirmation email to user
-    const userMailOptions = {
-      from: process.env.SMTP_USER,
+    await sgMail.send({
       to: email,
+      from: process.env.ADMIN_EMAIL!,
       subject: 'On-site Seminar Request Confirmation',
       html: `
         <h2>Thank you for your on-site seminar request!</h2>
@@ -92,15 +83,9 @@ export async function POST(request: Request) {
         
         <p>If you have any questions or need to update your request information, please contact us at info@koreatous.com or reply to this email.</p>
         
-        <p>Best regards,<br>The KoreaToUS Team</p>
-      `
-    }
-
-    // Send both emails
-    await Promise.all([
-      transporter.sendMail(adminMailOptions),
-      transporter.sendMail(userMailOptions),
-    ])
+        <p>Best regards,<br>The AI Biz Team</p>
+      `,
+    })
 
     return NextResponse.json({ success: true })
   } catch (error) {

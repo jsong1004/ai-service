@@ -1,0 +1,25 @@
+# Ignore everything by default
+*
+
+# But include these important files and directories
+!Dockerfile
+!cloudbuild.yaml
+!package.json
+!pnpm-lock.yaml
+!next.config.mjs
+!public/
+!app/
+!components/
+!styles/
+!lib/
+!types/
+!.env
+!.env.production
+!.env.local
+
+# Do not ignore hidden files and directories needed for build
+!.gcloudignore
+!tsconfig.json
+!tailwind.config.js
+!postcss.config.mjs
+

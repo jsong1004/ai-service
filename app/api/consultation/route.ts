@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import sgMail from '@sendgrid/mail'
 import { format } from 'date-fns'
 
 interface ConsultationFormData {
@@ -14,16 +14,7 @@ interface ConsultationFormData {
   preferredTime: 'morning' | 'afternoon' | 'evening'
 }
 
-// Create a transporter using SMTP
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
-  },
-})
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
 
 export async function POST(request: Request) {
   try {
@@ -60,9 +51,9 @@ export async function POST(request: Request) {
           : "Evening (5pm-8pm)"
 
     // Email to admin
-    const adminMailOptions = {
-      from: process.env.SMTP_USER,
-      to: 'jsong@koreatous.com',
+    await sgMail.send({
+      to: process.env.ADMIN_EMAIL!,
+      from: process.env.ADMIN_EMAIL!,
       subject: `Consultation Request from ${name} - ${company}`,
       html: `
         <h2>New Consultation Request</h2>
@@ -78,13 +69,13 @@ export async function POST(request: Request) {
         <p><strong>Preferred Time:</strong> ${formattedTime}</p>
         <h3>Message:</h3>
         <p>${message.replace(/\n/g, "<br>")}</p>
-      `
-    }
+      `,
+    })
 
     // Confirmation email to user
-    const userMailOptions = {
-      from: process.env.SMTP_USER,
+    await sgMail.send({
       to: email,
+      from: process.env.ADMIN_EMAIL!,
       subject: "We've Received Your Consultation Request",
       html: `
         <h2>Thank you for your consultation request, ${name}!</h2>
@@ -103,15 +94,9 @@ export async function POST(request: Request) {
         
         <p>We look forward to discussing how we can help ${company} leverage AI automation for your business!</p>
         
-        <p>Best regards,<br>The KoreaToUS Team</p>
-      `
-    }
-
-    // Send both emails
-    await Promise.all([
-      transporter.sendMail(adminMailOptions),
-      transporter.sendMail(userMailOptions),
-    ])
+        <p>Best regards,<br>The AI Biz Team</p>
+      `,
+    })
 
     return NextResponse.json({ success: true })
   } catch (error) {

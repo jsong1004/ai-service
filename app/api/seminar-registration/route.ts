@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import sgMail from '@sendgrid/mail'
 import ical from 'ical-generator'
 
 interface SeminarFormData {
@@ -17,15 +17,7 @@ interface AttendeeInfo {
 }
 
 // Create a transporter using SMTP
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
-  },
-})
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
 
 // Create calendar event
 const createCalendarEvent = (attendee: AttendeeInfo) => {
@@ -56,21 +48,12 @@ export async function POST(request: Request) {
   try {
     const formData: SeminarFormData = await request.json()
     const { firstName, lastName, email, experienceLevel, currentTools, learningGoals } = formData
-
-    // Create calendar events
-    const adminCalendar = createCalendarEvent({
-      name: 'Jaehee Song',
-      email: 'jsong@koreatous.com'
-    })
-    const userCalendar = createCalendarEvent({
-      name: `${firstName} ${lastName}`,
-      email: email
-    })
-
+    const adminCalendar = createCalendarEvent({ name: 'Jaehee Song', email: 'jsong@koreatous.com' })
+    const userCalendar = createCalendarEvent({ name: `${firstName} ${lastName}`, email })
     // Email to admin
-    const adminMailOptions = {
-      from: process.env.SMTP_USER,
-      to: 'jsong@koreatous.com',
+    await sgMail.send({
+      to: process.env.ADMIN_EMAIL!,
+      from: process.env.ADMIN_EMAIL!,
       subject: 'Request for Free Seminar',
       html: `
         <h2>New Seminar Registration</h2>
@@ -88,15 +71,16 @@ export async function POST(request: Request) {
         </ul>
       `,
       attachments: [{
+        content: Buffer.from(adminCalendar).toString('base64'),
         filename: 'seminar.ics',
-        content: adminCalendar
-      }]
-    }
-
+        type: 'text/calendar',
+        disposition: 'attachment',
+      }],
+    })
     // Confirmation email to user
-    const userMailOptions = {
-      from: process.env.SMTP_USER,
+    await sgMail.send({
       to: email,
+      from: process.env.ADMIN_EMAIL!,
       subject: 'Confirmation: Free AI Seminar Registration',
       html: `
         <h2>Thank you for registering for our Free AI Seminar!</h2>
@@ -117,20 +101,15 @@ export async function POST(request: Request) {
         <p>We've attached a calendar invitation to this email. Please add it to your calendar to ensure you don't miss the event.</p>
         <p>We'll send you the Zoom meeting link and additional materials 24 hours before the event.</p>
         <p>If you have any questions, please don't hesitate to contact us at info@koreatous.com</p>
-        <p>Best regards,<br>The KoreaToUS Team</p>
+        <p>Best regards,<br>The AI Biz Team</p>
       `,
       attachments: [{
+        content: Buffer.from(userCalendar).toString('base64'),
         filename: 'seminar.ics',
-        content: userCalendar
-      }]
-    }
-
-    // Send both emails
-    await Promise.all([
-      transporter.sendMail(adminMailOptions),
-      transporter.sendMail(userMailOptions),
-    ])
-
+        type: 'text/calendar',
+        disposition: 'attachment',
+      }],
+    })
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error sending emails:', error)
