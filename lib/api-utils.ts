@@ -21,14 +21,26 @@ export async function apiRequest<T, R = ApiResponse>(
       body: data ? JSON.stringify(data) : undefined,
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Request failed");
+      throw new Error(
+        responseData.error || 
+        responseData.message || 
+        `Request failed with status ${response.status}`
+      );
     }
 
-    return await response.json() as R;
+    return responseData as R;
   } catch (error) {
     console.error("API request error:", error);
+    
+    // Enhance error message for network errors
+    if (error instanceof TypeError && error.message === "Failed to fetch") {
+      throw new Error("Network error. Please check your internet connection.");
+    }
+    
+    // Re-throw the error with the original message
     throw error;
   }
 }

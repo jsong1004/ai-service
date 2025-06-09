@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { CalendarDays, Clock, MapPin, Building2 } from "lucide-react"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog"
 import SeminarRegistrationForm from "./seminar-registration-form"
 import OnsiteSeminarForm from "./onsite-seminar-form"
 
@@ -76,6 +76,7 @@ export default function SeminarSection() {
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-3xl">
+                <DialogTitle className="sr-only">Register for Free AI Seminar</DialogTitle>
                 <SeminarRegistrationForm onSuccess={() => setIsRegistrationOpen(false)} />
               </DialogContent>
             </Dialog>

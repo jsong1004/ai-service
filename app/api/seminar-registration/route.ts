@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import sgMail from '@sendgrid/mail'
 import ical from 'ical-generator'
+import firestore from '@/lib/firestore'
 
 interface SeminarFormData {
   firstName: string
@@ -16,8 +17,10 @@ interface AttendeeInfo {
   email: string
 }
 
-// Create a transporter using SMTP
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
+// Initialize SendGrid if API key is available
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+}
 
 // Create calendar event
 const createCalendarEvent = (attendee: AttendeeInfo) => {
@@ -44,12 +47,56 @@ const createCalendarEvent = (attendee: AttendeeInfo) => {
   return calendar.toString()
 }
 
+// Validate form data
+function validateFormData(data: any): data is SeminarFormData {
+  const requiredFields = ['firstName', 'lastName', 'email', 'experienceLevel']
+  return requiredFields.every(field => 
+    typeof data[field] === 'string' && data[field].trim().length > 0
+  ) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)
+}
+
 export async function POST(request: Request) {
   try {
-    const formData: SeminarFormData = await request.json()
+    // Check if environment variables are available
+    if (!process.env.SENDGRID_API_KEY || !process.env.ADMIN_EMAIL) {
+      return NextResponse.json(
+        { error: 'Email service is not configured' },
+        { status: 503 }
+      )
+    }
+
+    const formData = await request.json()
+    
+    // Validate form data
+    if (!validateFormData(formData)) {
+      return NextResponse.json(
+        { error: 'Invalid form data. Please check all required fields.' },
+        { status: 400 }
+      )
+    }
+
     const { firstName, lastName, email, experienceLevel, currentTools, learningGoals } = formData
     const adminCalendar = createCalendarEvent({ name: 'Jaehee Song', email: 'jsong@koreatous.com' })
     const userCalendar = createCalendarEvent({ name: `${firstName} ${lastName}`, email })
+
+    // Save registration to Firestore
+    try {
+      console.log('Attempting to save to Firestore...')
+      const docRef = await firestore.collection('seminar-registrations').add({
+        firstName,
+        lastName,
+        email,
+        experienceLevel,
+        currentTools,
+        learningGoals,
+        registeredAt: new Date()
+      })
+      console.log('Document written with ID:', docRef.id)
+    } catch (firestoreError) {
+      console.error('Firestore error:', firestoreError)
+      // Continue with email sending even if Firestore fails
+    }
+
     // Email to admin
     await sgMail.send({
       to: process.env.ADMIN_EMAIL!,
@@ -77,6 +124,7 @@ export async function POST(request: Request) {
         disposition: 'attachment',
       }],
     })
+
     // Confirmation email to user
     await sgMail.send({
       to: email,
@@ -110,12 +158,32 @@ export async function POST(request: Request) {
         disposition: 'attachment',
       }],
     })
-    return NextResponse.json({ success: true })
+
+    return NextResponse.json({ 
+      success: true,
+      message: 'Registration successful'
+    })
   } catch (error) {
-    console.error('Error sending emails:', error)
+    console.error('Error processing registration:', error)
+    
+    // Determine the appropriate error message and status code
+    let errorMessage = 'An unexpected error occurred'
+    let statusCode = 500
+
+    if (error instanceof Error) {
+      if (error.message.includes('SendGrid')) {
+        errorMessage = 'Failed to send confirmation email'
+      } else if (error.message.includes('Firestore')) {
+        errorMessage = 'Failed to save registration'
+      }
+    }
+
     return NextResponse.json(
-      { error: 'Failed to send registration emails' },
-      { status: 500 }
+      { 
+        success: false,
+        error: errorMessage 
+      },
+      { status: statusCode }
     )
   }
 } 

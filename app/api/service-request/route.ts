@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import sgMail from '@sendgrid/mail'
+import firestore from '@/lib/firestore'
 
 interface ServiceRequestFormData {
   name: string
@@ -16,6 +17,17 @@ export async function POST(request: Request) {
   try {
     const formData: ServiceRequestFormData = await request.json()
     const { name, email, phone, company, serviceInterest, serviceDetail } = formData
+
+    // Save service request to Firestore
+    await firestore.collection('Service-requests').add({
+      name,
+      email,
+      phone: phone || null,
+      company,
+      serviceInterest,
+      serviceDetail,
+      submittedAt: new Date()
+    })
 
     // Email to admin
     await sgMail.send({

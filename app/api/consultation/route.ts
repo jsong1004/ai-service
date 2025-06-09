@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import sgMail from '@sendgrid/mail'
 import { format } from 'date-fns'
+import firestore from '@/lib/firestore'
 
 interface ConsultationFormData {
   name: string
@@ -49,6 +50,20 @@ export async function POST(request: Request) {
         : preferredTime === "afternoon" 
           ? "Afternoon (12pm-5pm)" 
           : "Evening (5pm-8pm)"
+
+    // Save registration to Firestore
+    await firestore.collection('Consultation-registrations').add({
+      name,
+      email,
+      phone: phone || null,
+      company,
+      serviceInterest,
+      message,
+      preferredContact,
+      preferredDate: new Date(preferredDate),
+      preferredTime,
+      submittedAt: new Date()
+    })
 
     // Email to admin
     await sgMail.send({

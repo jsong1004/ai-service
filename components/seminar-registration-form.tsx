@@ -86,11 +86,11 @@ export default function SeminarRegistrationForm({ onSuccess }: FormProps) {
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <CalendarDays className="h-4 w-4" />
-              <span>June 16, 2025</span>
+              <span>June 25, 2025</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4" />
-              <span>11:00 AM Pacific Time</span>
+              <span>7:00 PM Pacific Time</span>
             </div>
           </div>
         </>
