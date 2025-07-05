@@ -45,4 +45,3 @@ gcloud.sh
 Dockerfile
 .gcloudignore 
 serviceAccountKey.json
-serviceAccountKey.json

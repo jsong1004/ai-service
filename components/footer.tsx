@@ -33,22 +33,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-white mb-4">Services</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="hover:text-white">
+                <Link href="/ai-workshops" className="hover:text-white">
                   AI Workshops
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white">
-                  Custom Automation
+                <Link href="/business-automation" className="hover:text-white">
+                  Business Automation
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white">
+                <Link href="/managed-services" className="hover:text-white">
                   Managed Services
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white">
+                <Link href="/consulting" className="hover:text-white">
                   Consulting
                 </Link>
               </li>
