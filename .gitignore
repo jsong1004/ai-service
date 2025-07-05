@@ -45,3 +45,5 @@ gcloud.sh
 Dockerfile
 .gcloudignore 
 serviceAccountKey.json
+
+firebaseConfig.ts

@@ -1,6 +1,13 @@
 import React from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "AI Workshops for Business",
+  description:
+    "Transform your team with hands-on AI workshops. Learn to build and implement real business automation solutions. Formats include 2-day bootcamps and custom corporate training.",
+}
 
 export default function AIWorkshopsPage() {
   return (

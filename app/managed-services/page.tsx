@@ -1,6 +1,13 @@
 import React from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "AI Managed Services",
+  description:
+    "Let us run your AI operations. We provide 24/7 system monitoring, continuous improvement, security, and maintenance for your automation systems.",
+}
 
 export default function ManagedServicesPage() {
   return (

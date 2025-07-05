@@ -1,6 +1,13 @@
 import React from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Strategic AI Consulting Services",
+  description:
+    "Navigate the AI revolution with expert guidance. We offer strategic AI planning, readiness assessments, technology selection, and implementation support.",
+}
 
 export default function ConsultingPage() {
   return (

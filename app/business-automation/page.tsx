@@ -1,6 +1,13 @@
 import React from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Custom Business Automation Solutions",
+  description:
+    "We build bespoke AI-powered automation systems to transform your operations. Our services include intelligent document processing, customer service automation, and more.",
+}
 
 export default function BusinessAutomationPage() {
   return (
