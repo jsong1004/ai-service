@@ -1,0 +1,85 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4338CA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="secondaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A5B4FC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C7D2FE;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Main GTM Framework -->
+  <g filter="url(#shadow)">
+    <!-- Central Circle -->
+    <circle cx="400" cy="300" r="80" fill="url(#primaryGradient)"/>
+    <text x="400" y="295" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">30-Day</text>
+    <text x="400" y="315" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">GTM</text>
+    
+    <!-- Week 1 - Foundation -->
+    <rect x="120" y="100" width="140" height="80" rx="10" fill="url(#secondaryGradient)"/>
+    <text x="190" y="125" text-anchor="middle" fill="#1E293B" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Week 1</text>
+    <text x="190" y="140" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Foundation</text>
+    <text x="190" y="155" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">SEO Setup</text>
+    <text x="190" y="170" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Lead Magnets</text>
+    
+    <!-- Week 2 - Content -->
+    <rect x="540" y="100" width="140" height="80" rx="10" fill="url(#secondaryGradient)"/>
+    <text x="610" y="125" text-anchor="middle" fill="#1E293B" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Week 2</text>
+    <text x="610" y="140" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Content</text>
+    <text x="610" y="155" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Community</text>
+    <text x="610" y="170" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Engagement</text>
+    
+    <!-- Week 3 - Distribution -->
+    <rect x="540" y="420" width="140" height="80" rx="10" fill="url(#secondaryGradient)"/>
+    <text x="610" y="445" text-anchor="middle" fill="#1E293B" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Week 3</text>
+    <text x="610" y="460" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Distribution</text>
+    <text x="610" y="475" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Amplification</text>
+    <text x="610" y="490" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Analytics</text>
+    
+    <!-- Week 4 - Launch -->
+    <rect x="120" y="420" width="140" height="80" rx="10" fill="url(#secondaryGradient)"/>
+    <text x="190" y="445" text-anchor="middle" fill="#1E293B" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Week 4</text>
+    <text x="190" y="460" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Launch</text>
+    <text x="190" y="475" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Paid Ads</text>
+    <text x="190" y="490" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10">Analysis</text>
+  </g>
+  
+  <!-- Connecting Lines -->
+  <line x1="260" y1="140" x2="320" y2="250" stroke="#4338CA" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="540" y1="140" x2="480" y2="250" stroke="#4338CA" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="540" y1="460" x2="480" y2="350" stroke="#4338CA" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="260" y1="460" x2="320" y2="350" stroke="#4338CA" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Growth Arrow -->
+  <path d="M 50 550 Q 200 500 400 480 Q 600 460 750 420" stroke="#10B981" stroke-width="3" fill="none"/>
+  <polygon points="745,415 755,420 745,425 750,420" fill="#10B981"/>
+  <text x="400" y="540" text-anchor="middle" fill="#10B981" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Growth Trajectory</text>
+  
+  <!-- KPI Metrics -->
+  <g>
+    <rect x="30" y="30" width="100" height="60" rx="8" fill="white" stroke="#E5E7EB"/>
+    <text x="80" y="50" text-anchor="middle" fill="#4338CA" font-family="Arial, sans-serif" font-size="18" font-weight="bold">5-10</text>
+    <text x="80" y="65" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="9">Leads</text>
+    <text x="80" y="80" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="9">Generated</text>
+  </g>
+  
+  <g>
+    <rect x="670" y="30" width="100" height="60" rx="8" fill="white" stroke="#E5E7EB"/>
+    <text x="720" y="50" text-anchor="middle" fill="#4338CA" font-family="Arial, sans-serif" font-size="18" font-weight="bold">1-2</text>
+    <text x="720" y="65" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="9">Workshops</text>
+    <text x="720" y="80" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="9">Booked</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="580" text-anchor="middle" fill="#1E293B" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Go-to-Market Strategy for AI Consulting</text>
+</svg>

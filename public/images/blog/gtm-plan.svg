@@ -1,0 +1,133 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4338ca;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f8fafc;stop-opacity:0.95" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGradient)"/>
+  
+  <!-- Title Section -->
+  <rect x="50" y="30" width="700" height="80" rx="12" fill="url(#cardGradient)" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="400" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#1a202c">Go-to-Market Strategy</text>
+  <text x="400" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#4a5568">AI-Biz.App: 30-Day Action Plan</text>
+  <text x="400" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#718096">Interactive GTM Framework</text>
+  
+  <!-- Strategy Components -->
+  
+  <!-- Component 1: Strategy -->
+  <rect x="60" y="140" width="150" height="120" rx="8" fill="url(#cardGradient)" stroke="#4338ca" stroke-width="2"/>
+  <circle cx="135" cy="170" r="15" fill="#4338ca"/>
+  <text x="135" y="176" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">1</text>
+  <text x="135" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Strategy</text>
+  <text x="135" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Positioning</text>
+  <text x="135" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Value Prop</text>
+  <text x="135" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Service Tiers</text>
+  
+  <!-- Component 2: Website -->
+  <rect x="230" y="140" width="150" height="120" rx="8" fill="url(#cardGradient)" stroke="#6366f1" stroke-width="2"/>
+  <circle cx="305" cy="170" r="15" fill="#6366f1"/>
+  <text x="305" y="176" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">2</text>
+  <text x="305" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Website</text>
+  <text x="305" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Lead Magnets</text>
+  <text x="305" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">SEO Foundation</text>
+  <text x="305" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Conversion</text>
+  
+  <!-- Component 3: Content -->
+  <rect x="400" y="140" width="150" height="120" rx="8" fill="url(#cardGradient)" stroke="#8b5cf6" stroke-width="2"/>
+  <circle cx="475" cy="170" r="15" fill="#8b5cf6"/>
+  <text x="475" y="176" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">3</text>
+  <text x="475" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Content</text>
+  <text x="475" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Blog Strategy</text>
+  <text x="475" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">30-Day Calendar</text>
+  <text x="475" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Thought Leadership</text>
+  
+  <!-- Component 4: Community -->
+  <rect x="570" y="140" width="150" height="120" rx="8" fill="url(#cardGradient)" stroke="#10b981" stroke-width="2"/>
+  <circle cx="645" cy="170" r="15" fill="#10b981"/>
+  <text x="645" y="176" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">4</text>
+  <text x="645" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Community</text>
+  <text x="645" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Reddit Strategy</text>
+  <text x="645" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">LinkedIn Presence</text>
+  <text x="645" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Value-First</text>
+  
+  <!-- Flow Arrows -->
+  <path d="M 210 200 L 230 200" stroke="#ffffff" stroke-width="3" marker-end="url(#whiteArrow)"/>
+  <path d="M 380 200 L 400 200" stroke="#ffffff" stroke-width="3" marker-end="url(#whiteArrow)"/>
+  <path d="M 550 200 L 570 200" stroke="#ffffff" stroke-width="3" marker-end="url(#whiteArrow)"/>
+  
+  <!-- Component 5: Ads -->
+  <rect x="200" y="300" width="150" height="120" rx="8" fill="url(#cardGradient)" stroke="#f59e0b" stroke-width="2"/>
+  <circle cx="275" cy="330" r="15" fill="#f59e0b"/>
+  <text x="275" y="336" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">5</text>
+  <text x="275" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Paid Ads</text>
+  <text x="275" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Micro-Budget</text>
+  <text x="275" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Reddit Targeting</text>
+  <text x="275" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">$40 Test</text>
+  
+  <!-- Component 6: Action Plan -->
+  <rect x="450" y="300" width="150" height="120" rx="8" fill="url(#cardGradient)" stroke="#ef4444" stroke-width="2"/>
+  <circle cx="525" cy="330" r="15" fill="#ef4444"/>
+  <text x="525" y="336" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">6</text>
+  <text x="525" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Action Plan</text>
+  <text x="525" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">30-Day Timeline</text>
+  <text x="525" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Weekly Goals</text>
+  <text x="525" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">KPIs & Metrics</text>
+  
+  <!-- Central Hub -->
+  <circle cx="400" cy="360" r="35" fill="rgba(255,255,255,0.9)" stroke="#4338ca" stroke-width="3"/>
+  <text x="400" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4338ca">GTM</text>
+  <text x="400" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4338ca">Strategy</text>
+  
+  <!-- Connection lines to central hub -->
+  <path d="M 360 200 L 375 335" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+  <path d="M 440 200 L 425 335" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+  <path d="M 350 360 L 365 360" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+  <path d="M 435 360 L 450 360" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+  
+  <!-- KPI Dashboard -->
+  <rect x="50" y="460" width="700" height="120" rx="8" fill="url(#cardGradient)" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="400" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2d3748">30-Day Success Metrics</text>
+  
+  <!-- KPI Cards -->
+  <rect x="80" y="500" width="130" height="60" rx="6" fill="rgba(67,56,202,0.1)" stroke="#4338ca" stroke-width="1"/>
+  <text x="145" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4338ca">Lead Magnets</text>
+  <text x="145" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#4338ca">5-10</text>
+  <text x="145" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6b7280">Downloads</text>
+  
+  <rect x="230" y="500" width="130" height="60" rx="6" fill="rgba(99,102,241,0.1)" stroke="#6366f1" stroke-width="1"/>
+  <text x="295" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#6366f1">Conversion</text>
+  <text x="295" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#6366f1">>2%</text>
+  <text x="295" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6b7280">Rate</text>
+  
+  <rect x="380" y="500" width="130" height="60" rx="6" fill="rgba(139,92,246,0.1)" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="445" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#8b5cf6">Blog Posts</text>
+  <text x="445" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#8b5cf6">4</text>
+  <text x="445" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6b7280">Published</text>
+  
+  <rect x="530" y="500" width="130" height="60" rx="6" fill="rgba(16,185,129,0.1)" stroke="#10b981" stroke-width="1"/>
+  <text x="595" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#10b981">Workshops</text>
+  <text x="595" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#10b981">1-2</text>
+  <text x="595" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6b7280">Booked</text>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="whiteArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ffffff"/>
+    </marker>
+  </defs>
+</svg>
