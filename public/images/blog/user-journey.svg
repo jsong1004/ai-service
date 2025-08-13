@@ -1,0 +1,99 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f8fafc;stop-opacity:0.95" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bg)"/>
+  
+  <!-- Title -->
+  <rect x="50" y="30" width="700" height="80" rx="12" fill="url(#cardGradient)" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="400" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1a202c">MyJob User Journey Map</text>
+  <text x="400" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#4a5568">From Discovery to Career Success</text>
+  
+  <!-- Journey Timeline -->
+  <line x1="100" y1="200" x2="700" y2="200" stroke="#cbd5e0" stroke-width="4"/>
+  
+  <!-- Journey Stages -->
+  
+  <!-- Stage 1: Discovery -->
+  <circle cx="150" cy="200" r="20" fill="#3182ce"/>
+  <text x="150" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">1</text>
+  <rect x="100" y="240" width="100" height="80" rx="8" fill="url(#cardGradient)" stroke="#3182ce" stroke-width="2"/>
+  <text x="150" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Discovery</text>
+  <text x="150" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Search Jobs</text>
+  <text x="150" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Browse Platform</text>
+  <text x="150" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Read Reviews</text>
+  
+  <!-- Stage 2: Registration -->
+  <circle cx="270" cy="200" r="20" fill="#38a169"/>
+  <text x="270" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">2</text>
+  <rect x="220" y="240" width="100" height="80" rx="8" fill="url(#cardGradient)" stroke="#38a169" stroke-width="2"/>
+  <text x="270" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Registration</text>
+  <text x="270" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Create Profile</text>
+  <text x="270" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Upload Resume</text>
+  <text x="270" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Set Preferences</text>
+  
+  <!-- Stage 3: Application -->
+  <circle cx="390" cy="200" r="20" fill="#d69e2e"/>
+  <text x="390" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">3</text>
+  <rect x="340" y="240" width="100" height="80" rx="8" fill="url(#cardGradient)" stroke="#d69e2e" stroke-width="2"/>
+  <text x="390" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Application</text>
+  <text x="390" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Apply to Jobs</text>
+  <text x="390" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Track Status</text>
+  <text x="390" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Get Feedback</text>
+  
+  <!-- Stage 4: Interview -->
+  <circle cx="510" cy="200" r="20" fill="#e53e3e"/>
+  <text x="510" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">4</text>
+  <rect x="460" y="240" width="100" height="80" rx="8" fill="url(#cardGradient)" stroke="#e53e3e" stroke-width="2"/>
+  <text x="510" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Interview</text>
+  <text x="510" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Schedule Calls</text>
+  <text x="510" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Prep Materials</text>
+  <text x="510" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Follow Up</text>
+  
+  <!-- Stage 5: Onboarding -->
+  <circle cx="630" cy="200" r="20" fill="#9f7aea"/>
+  <text x="630" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">5</text>
+  <rect x="580" y="240" width="100" height="80" rx="8" fill="url(#cardGradient)" stroke="#9f7aea" stroke-width="2"/>
+  <text x="630" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Onboarding</text>
+  <text x="630" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Job Offer</text>
+  <text x="630" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Start Work</text>
+  <text x="630" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4a5568">Training</text>
+  
+  <!-- Pain Points -->
+  <rect x="50" y="360" width="700" height="100" rx="8" fill="#fed7d7" stroke="#fc8181" stroke-width="1"/>
+  <text x="400" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#c53030">Pain Points</text>
+  <text x="150" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c53030">Job Search Overload</text>
+  <text x="300" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c53030">Complex Registration</text>
+  <text x="450" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c53030">Application Blackhole</text>
+  <text x="600" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c53030">Interview Anxiety</text>
+  <text x="150" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c53030">Lack of Transparency</text>
+  <text x="300" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c53030">Poor User Experience</text>
+  <text x="450" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c53030">No Follow-up</text>
+  <text x="600" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c53030">Slow Process</text>
+  
+  <!-- Opportunities -->
+  <rect x="50" y="480" width="700" height="100" rx="8" fill="#c6f6d5" stroke="#68d391" stroke-width="1"/>
+  <text x="400" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2f855a">Opportunities</text>
+  <text x="150" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2f855a">AI-Powered Matching</text>
+  <text x="300" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2f855a">One-Click Applications</text>
+  <text x="450" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2f855a">Real-time Updates</text>
+  <text x="600" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2f855a">Interview Coaching</text>
+  <text x="150" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2f855a">Personalized Dashboard</text>
+  <text x="300" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2f855a">Mobile-First Design</text>
+  <text x="450" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2f855a">Smart Notifications</text>
+  <text x="600" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2f855a">Career Analytics</text>
+  
+  <!-- User Icon -->
+  <circle cx="400" cy="150" r="25" fill="#4299e1"/>
+  <circle cx="400" cy="142" r="8" fill="white"/>
+  <path d="M 385 165 Q 400 155 415 165" stroke="white" stroke-width="3" fill="none"/>
+</svg>

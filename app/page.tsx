@@ -5,7 +5,7 @@ import TestimonialsSection from "@/components/testimonials-section"
 import PricingSection from "@/components/pricing-section"
 import CtaSection from "@/components/cta-section"
 import Footer from "@/components/footer"
-import SeminarSection from "@/components/seminar-section"
+// import SeminarSection from "@/components/seminar-section"
 import { Metadata } from "next"
 import { SHOW_TESTIMONIALS } from "@/lib/config"
 
@@ -21,7 +21,7 @@ export default function Home() {
       <div className="min-h-screen flex flex-col">
         <main className="flex-grow">
           <HeroSection />
-          <SeminarSection />
+          {/* <SeminarSection /> */}
           <FeaturesSection />
           {SHOW_TESTIMONIALS && <TestimonialsSection />}
           <PricingSection />

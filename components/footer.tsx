@@ -73,6 +73,11 @@ export default function Footer() {
                   Case Studies
                 </Link>
               </li>
+              <li>
+                <Link href="/blog" className="hover:text-white">
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
 
