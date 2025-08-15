@@ -1,0 +1,19 @@
+{
+    "name": "AI Business Automation",
+    "short_name": "AI Biz",
+    "icons": [
+        {
+            "src": "/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ],
+    "theme_color": "#007bff",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}

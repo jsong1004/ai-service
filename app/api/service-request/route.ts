@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
-import sgMail from '@sendgrid/mail'
 import firestore from '@/lib/firestore'
+import transporter from '@/lib/nodemailer'
 
 interface ServiceRequestFormData {
   name: string
@@ -11,70 +11,60 @@ interface ServiceRequestFormData {
   serviceDetail: string
 }
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
-
 export async function POST(request: Request) {
   try {
     const formData: ServiceRequestFormData = await request.json()
     const { name, email, phone, company, serviceInterest, serviceDetail } = formData
 
     // Save service request to Firestore
-    await firestore.collection('Service-requests').add({
-      name,
-      email,
-      phone: phone || null,
-      company,
-      serviceInterest,
-      serviceDetail,
-      submittedAt: new Date()
-    })
+    try {
+      await firestore.collection('Service-requests').add({
+        name,
+        email,
+        phone: phone || null,
+        company,
+        serviceInterest,
+        serviceDetail,
+        submittedAt: new Date()
+      })
+    } catch (dbError) {
+      console.error('Firestore error:', dbError)
+    }
 
     // Email to admin
-    await sgMail.send({
-      to: process.env.ADMIN_EMAIL!,
-      from: process.env.ADMIN_EMAIL!,
-      subject: `New Service Request: ${serviceInterest}`,
+    await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
+      to: process.env.ADMIN_EMAIL,
+      subject: `Service Request from ${name} - ${serviceInterest}`,
       html: `
         <h2>New Service Request</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || '-'}</p>
+        <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
         <p><strong>Company:</strong> ${company}</p>
         <p><strong>Service Interest:</strong> ${serviceInterest}</p>
-        <p><strong>Service Request Detail:</strong></p>
-        <p>${serviceDetail}</p>
+        <h3>Details:</h3>
+        <p>${serviceDetail.replace(/\n/g, "<br>")}</p>
       `,
     })
 
     // Confirmation email to user
-    await sgMail.send({
+    await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
       to: email,
-      from: process.env.ADMIN_EMAIL!,
-      subject: `Confirmation: Service Request (${serviceInterest})`,
+      subject: "We've Received Your Service Request",
       html: `
-        <h2>Thank you for your service request!</h2>
-        <p>Dear ${name},</p>
-        <p>We have received your request for <strong>${serviceInterest}</strong>. Our team will review your information and contact you soon.</p>
-        <h3>Your Request Details:</h3>
-        <ul>
-          <li><strong>Name:</strong> ${name}</li>
-          <li><strong>Email:</strong> ${email}</li>
-          <li><strong>Phone:</strong> ${phone || '-'}</li>
-          <li><strong>Company:</strong> ${company}</li>
-          <li><strong>Service Interest:</strong> ${serviceInterest}</li>
-        </ul>
-        <p><strong>Service Request Detail:</strong></p>
-        <p>${serviceDetail}</p>
-        <p>If you have any questions, please contact us at info@koreatous.com</p>
-        <p>Best regards,<br />The AI Biz Team</p>
+        <h2>Thank you for your service request, ${name}!</h2>
+        <p>We have received your request regarding "${serviceInterest}". Our team will review it and get back to you within 24 hours.</p>
+        <p>Best regards,<br>The AI Biz Team</p>
       `,
     })
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error sending service request emails:', error)
+    console.error('Error sending service request email:', error)
     return NextResponse.json(
-      { error: 'Failed to send service request emails' },
+      { error: 'Failed to send service request email' },
       { status: 500 }
     )
   }

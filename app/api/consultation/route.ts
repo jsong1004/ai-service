@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
-import sgMail from '@sendgrid/mail'
 import { format } from 'date-fns'
 import firestore from '@/lib/firestore'
+import transporter from '@/lib/nodemailer'
 
 interface ConsultationFormData {
   name: string
@@ -14,8 +14,6 @@ interface ConsultationFormData {
   preferredDate: string | Date
   preferredTime: 'morning' | 'afternoon' | 'evening'
 }
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
 
 export async function POST(request: Request) {
   try {
@@ -52,23 +50,28 @@ export async function POST(request: Request) {
           : "Evening (5pm-8pm)"
 
     // Save registration to Firestore
-    await firestore.collection('Consultation-registrations').add({
-      name,
-      email,
-      phone: phone || null,
-      company,
-      serviceInterest,
-      message,
-      preferredContact,
-      preferredDate: new Date(preferredDate),
-      preferredTime,
-      submittedAt: new Date()
-    })
+    try {
+      await firestore.collection('Consultation-registrations').add({
+        name,
+        email,
+        phone: phone || null,
+        company,
+        serviceInterest,
+        message,
+        preferredContact,
+        preferredDate: new Date(preferredDate),
+        preferredTime,
+        submittedAt: new Date()
+      })
+    } catch (dbError) {
+      console.error('Firestore error:', dbError)
+      // Decide if you want to proceed without saving to DB
+    }
 
     // Email to admin
-    await sgMail.send({
-      to: process.env.ADMIN_EMAIL!,
-      from: process.env.ADMIN_EMAIL!,
+    await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
+      to: process.env.ADMIN_EMAIL,
       subject: `Consultation Request from ${name} - ${company}`,
       html: `
         <h2>New Consultation Request</h2>
@@ -88,9 +91,9 @@ export async function POST(request: Request) {
     })
 
     // Confirmation email to user
-    await sgMail.send({
+    await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
       to: email,
-      from: process.env.ADMIN_EMAIL!,
       subject: "We've Received Your Consultation Request",
       html: `
         <h2>Thank you for your consultation request, ${name}!</h2>
@@ -114,10 +117,10 @@ export async function POST(request: Request) {
     })
 
     return NextResponse.json({ success: true })
-  } catch (error) {
-    console.error('Error sending emails:', error)
+  } catch (error: any) {
+    console.error('Error in consultation endpoint:', error)
     return NextResponse.json(
-      { error: 'Failed to send consultation emails' },
+      { error: 'Failed to send consultation email.' },
       { status: 500 }
     )
   }

@@ -3,32 +3,43 @@ import { firebaseConfig } from '@/firebaseConfig';
 import path from 'path';
 import fs from 'fs';
 
-// Initialize Firestore client using the Firebase config
-const firestoreConfig: any = {
-  projectId: firebaseConfig.projectId,
-  databaseId: 'ai-biz' // Explicitly specify the ai-biz database
-};
+let firestore: Firestore;
 
-// Use service account key file locally, credentials from environment in cloud
-if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-  // Cloud environment - GOOGLE_APPLICATION_CREDENTIALS contains the JSON content
-  console.log('Using GOOGLE_APPLICATION_CREDENTIALS from Secret Manager');
-  try {
-    // Parse the JSON credentials
-    const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-    firestoreConfig.credentials = credentials;
-  } catch (error) {
-    console.error('Failed to parse GOOGLE_APPLICATION_CREDENTIALS:', error);
-    // Fallback: try as file path
-    firestoreConfig.keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+try {
+  let credentials;
+  
+  if (process.env.NODE_ENV === 'production') {
+    // In production (Cloud Run), use the mounted secret file
+    credentials = {
+      keyFilename: '/secrets/service-account-key/key.json',
+    };
+  } else {
+    // In local development, use the environment variable
+    const credentialsString = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+    
+    if (!credentialsString) {
+      throw new Error('GOOGLE_APPLICATION_CREDENTIALS environment variable is not set.');
+    }
+
+    try {
+      credentials = {
+        credentials: JSON.parse(credentialsString),
+      };
+    } catch (e) {
+      // Fallback for local development if it's a path
+      credentials = {
+        keyFilename: credentialsString,
+      };
+    }
   }
-} else {
-  // Local environment - use the service account key file
-  console.log('Using local service account key file');
-  firestoreConfig.keyFilename = path.join(process.cwd(), 'serviceAccountKey.json');
-}
 
-console.log('Firestore config:', { projectId: firestoreConfig.projectId, databaseId: firestoreConfig.databaseId });
-const firestore = new Firestore(firestoreConfig);
+  firestore = new Firestore(credentials);
+  console.log('Firestore initialized successfully.');
+
+} catch (error) {
+  console.error('Failed to initialize Firestore:', error);
+  // Create a mock or dummy Firestore instance to prevent crashes
+  firestore = {} as Firestore; 
+}
 
 export default firestore; 

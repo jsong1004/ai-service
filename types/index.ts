@@ -47,6 +47,20 @@ export interface OnsiteSeminarFormData {
   additionalNotes: string;
 }
 
+export interface AIStrategySessionFormData {
+  name: string;
+  email: string;
+  phone?: string;
+  company: string;
+  industry: string;
+  teamSize: string;
+  topPriorities: string;
+  message?: string;
+  preferredContact: "email" | "phone";
+  preferredDate: Date;
+  preferredTime: "morning" | "afternoon" | "evening";
+}
+
 // Component Props Interfaces
 export interface SuccessMessageProps {
   title: string;

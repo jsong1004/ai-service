@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import ConsultationForm from "@/components/consultation-form"
 
 export default function HeroSection() {
@@ -28,6 +28,12 @@ export default function HeroSection() {
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl">
+                  <DialogHeader>
+                    <DialogTitle className="sr-only">Free AI Consultation</DialogTitle>
+                    <DialogDescription className="sr-only">
+                      Fill out this form to schedule a free consultation with our AI experts.
+                    </DialogDescription>
+                  </DialogHeader>
                   <ConsultationForm onSuccess={() => setIsConsultationOpen(false)} />
                 </DialogContent>
               </Dialog>
