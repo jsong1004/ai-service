@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       serviceInterest === "workshop" 
         ? "AI Automation Workshop ($200/hour)" 
         : serviceInterest === "build" 
-          ? "AI Automation Build ($500/hour)" 
+          ? "AI Automation Build ($300/hour)" 
           : "Managed AI Automation Service ($1000/project)"
     
     // Format preferred time

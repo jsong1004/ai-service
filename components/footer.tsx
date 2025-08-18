@@ -38,6 +38,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/ai-opportunity" className="hover:text-white">
+                  AI Opportunity Scorecard
+                </Link>
+              </li>
+              <li>
                 <Link href="/business-automation" className="hover:text-white">
                   Business Automation
                 </Link>

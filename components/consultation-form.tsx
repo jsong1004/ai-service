@@ -164,7 +164,7 @@ export default function ConsultationForm({ onSuccess }: FormProps) {
                 <SelectItem value="general">General</SelectItem>
           
                 <SelectItem value="workshop">AI Automation Workshop ($100/30 minutes)</SelectItem>
-                <SelectItem value="build">AI Automation Build ($500/hour)</SelectItem>
+                <SelectItem value="build">AI Automation Build ($300/hour)</SelectItem>
                 <SelectItem value="managed">Managed AI Service </SelectItem>
               </SelectContent>
             </Select>

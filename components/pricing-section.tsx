@@ -26,7 +26,7 @@ export default function PricingSection() {
     },
     {
       title: "AI Automation Build",
-      price: "$500",
+      price: "$300",
       unit: "per hour",
       description: "We build complex business automation for you and educate/train you to maintain the process.",
       features: [

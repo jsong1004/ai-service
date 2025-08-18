@@ -198,7 +198,7 @@ export default function AIStrategySessionForm({ onSuccess }: FormProps) {
 
           <div className="space-y-2">
             <Label htmlFor="message">
-              Additional Comments <span className="text-red-500">*</span>
+              Additional Comments 
             </Label>
             <Textarea
               id="message"
