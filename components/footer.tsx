@@ -57,6 +57,11 @@ export default function Footer() {
                   Consulting
                 </Link>
               </li>
+              <li>
+                <Link href="/affiliate" className="hover:text-white">
+                  Affiliate Program
+                </Link>
+              </li>
             </ul>
           </div>
 
