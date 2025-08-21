@@ -83,6 +83,11 @@ export default function Footer() {
                   Blog
                 </Link>
               </li>
+              <li>
+                <Link href="/download" className="hover:text-white">
+                  Downloads
+                </Link>
+              </li>
             </ul>
           </div>
 

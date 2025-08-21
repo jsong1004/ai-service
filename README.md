@@ -5,7 +5,7 @@ A modern landing page for AI business automation services, built with Next.js, R
 ## Features
 - **Blog System**: Dynamic blog with consistent design and responsive layout
 - **Form Management**: Multiple form types (seminar registration, consultation, service requests)
-- **Email Integration**: Automated email notifications via SendGrid API
+- **Email Integration**: Automated email notifications via Nodemailer
 - **Modern UI**: Responsive design with Tailwind CSS and shadcn/ui components
 - **Firebase Integration**: Data persistence with Firestore
 - **SEO Optimized**: Meta tags, structured data, and search engine friendly URLs
@@ -29,12 +29,14 @@ pnpm dev
 ### Environment Variables
 Create a `.env.local` file in the root directory with the following:
 ```
-SENDGRID_API_KEY=your-sendgrid-api-key
+EMAIL_SERVICE=gmail
+EMAIL_USER=your-email@gmail.com
+EMAIL_APP_PASSWORD=your-app-password
 ADMIN_EMAIL=your-admin-email@example.com
 ```
 
 ### Email Setup
-- Uses SendGrid API for all transactional emails (seminar registration, consultation, service requests).
+- Uses Nodemailer with Gmail SMTP for all transactional emails (seminar registration, consultation, service requests).
 - In production, these secrets are managed via Google Secret Manager and injected automatically by Cloud Build.
 
 ## Pages

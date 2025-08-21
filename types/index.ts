@@ -61,6 +61,12 @@ export interface AIStrategySessionFormData {
   preferredTime: "morning" | "afternoon" | "evening";
 }
 
+export interface DownloadFormData {
+  name: string;
+  email: string;
+  linkedinProfile?: string;
+}
+
 // Component Props Interfaces
 export interface SuccessMessageProps {
   title: string;
