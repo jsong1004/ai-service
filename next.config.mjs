@@ -10,9 +10,6 @@ const nextConfig = {
     unoptimized: true,
     domains: ['www.ai-biz.app'],
   },
-  experimental: {
-    serverActions: true,
-  },
   // Add proper handling for dynamic routes
   async redirects() {
     return []
