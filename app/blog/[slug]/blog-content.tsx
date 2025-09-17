@@ -1,65 +1,13 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 
 interface BlogContentProps {
   html: string
   styles: string
 }
 
-function scopeStyles(originalStyles: string, scopeSelector: string): string {
-  if (!originalStyles) return ''
-
-  // Extract keyframes to keep them unmodified
-  const keyframesBlocks: string[] = []
-  let keyframeIndex = 0
-  let styles = originalStyles.replace(/@keyframes[\s\S]*?\{[\s\S]*?\}/g, (block) => {
-    const placeholder = `__KEYFRAMES_PLACEHOLDER_${keyframeIndex++}__`
-    keyframesBlocks.push(block)
-    return placeholder
-  })
-
-  const prefixSelectors = (css: string): string => {
-    // Prefix standard rules
-    const prefixed = css.replace(/([^}@][^{]+)\{/g, (match, selector) => {
-      const processed = selector
-        .split(',')
-        .map((raw) => {
-          const sel = raw.trim()
-          if (!sel) return sel
-          if (sel.startsWith('@')) return sel
-          if (/^(from|to|\d+%)/.test(sel)) return sel // keyframe selectors inside media
-          if (sel === 'body' || sel === 'html') return scopeSelector
-          if (sel === '*') return `${scopeSelector} *`
-          if (sel.startsWith(scopeSelector)) return sel
-          return `${scopeSelector} ${sel}`
-        })
-        .join(', ')
-      return `${processed} {`
-    })
-
-    return prefixed
-  }
-
-  // Handle media queries by prefixing their inner blocks only
-  styles = styles.replace(/@media[^\{]+\{([\s\S]*?)\}/g, (match, inner) => {
-    const scopedInner = prefixSelectors(inner)
-    return match.replace(inner, scopedInner)
-  })
-
-  // Prefix any top-level rules
-  styles = prefixSelectors(styles)
-
-  // Restore keyframes
-  keyframesBlocks.forEach((block, idx) => {
-    styles = styles.replace(`__KEYFRAMES_PLACEHOLDER_${idx}__`, block)
-  })
-
-  return styles
-}
-
 export default function BlogContent({ html, styles }: BlogContentProps) {
-  const scopedStyles = useMemo(() => scopeStyles(styles, '.blog-article'), [styles])
   useEffect(() => {
     // Add any client-side JavaScript that was in the original HTML files
     const handleScroll = () => {
@@ -282,9 +230,9 @@ export default function BlogContent({ html, styles }: BlogContentProps) {
   }, [html])
 
   return (
-  	<>
-  	  <style dangerouslySetInnerHTML={{ __html: scopedStyles }} />
-  	  <div className="blog-article" dangerouslySetInnerHTML={{ __html: html }} />
-  	</>
+	<>
+	  <style dangerouslySetInnerHTML={{ __html: styles }} />
+	  <div dangerouslySetInnerHTML={{ __html: html }} />
+	</>
   )
 }
