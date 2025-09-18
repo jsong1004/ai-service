@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>라디오 인터뷰 플래시카드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+        
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .card {
+            width: 95%;
+            height: 95vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            overflow-y: auto;
+        }
+        
+        .card.active {
+            display: flex;
+        }
+        
+        .card-header {
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .card-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            padding-right: 60px;
+        }
+        
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 5px solid #e74c3c;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+        
+        .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e74c3c;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .context {
+            font-size: 18px;
+            color: #2c3e50;
+            line-height: 1.4;
+        }
+        
+        .source {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            background: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            font-size: 24px;
+            color: #3498db;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .page-indicator {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        
+        h2 {
+            color: #34495e;
+            font-size: 22px;
+            margin: 20px 0 15px;
+        }
+        
+        /* Touch swipe support */
+        .container {
+            touch-action: pan-y;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-indicator" id="pageIndicator">1 / 17</div>
+    
+    <div class="container" id="container">
+        <!-- Card 1 -->
+        <div class="card active">
+            <div class="card-number">1</div>
+            <div class="card-header">
+                <h1>AI 혁명이 역사상 가장 빠른 노동 혁명인 이유</h1>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">100년 → 30년 → 15년 → 2년</span>
+                <span class="context">산업혁명 → PC 혁명 → 인터넷 혁명 → AI 혁명</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">1억 5천만 명</span>
+                <span class="context">ChatGPT 주간 활성 사용자 최초 돌파 — ‘지브리 스타일’ 이미지 열풍이 견인</span>
+            </div>
+
+            <div class="stat-box">
+                <span class="number">1시간 +100만</span>
+                <span class="context">지브리 스타일 아트 출시 직후 한 시간 신규 사용자 — 초기 출시 5일 증가와 동일</span>
+                <span class="source">Sam Altman 보고</span>
+            </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-number">2</div>
+            <div class="card-header">
+                <h1>Visa 해고 경험과 개인적 충격</h1>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">2025년 1월</span>
+                <span class="context">Visa 레이오프 시점</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">0회</span>
+                <span class="context">이전 Visa 레이오프 횟수</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">✅ 회사 실적 양호</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">✅ 개인 평가 우수</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">✅ 지속적 인원 충원 필요 상황</span>
+            </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-number">3</div>
+            <div class="card-header">
+                <h1>주목해야 할 핵심 통계</h1>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">22%</span>
+                <span class="context">2030년까지 구조적 재편 고용 비율</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">39%</span>
+                <span class="context">완전히 재정의될 핵심 역량</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">43%</span>
+                <span class="context">AI 스킬 보유자 임금 프리미엄</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">1억 7천만 개</span>
+                <span class="context">새로 생길 일자리 (새로운 스킬 요구)</span>
+            </div>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-number">4</div>
+            <div class="card-header">
+                <h1>현재 대규모 해고의 본질</h1>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">89만 2천 개</span>
+                <span class="context">2025년 미국 일자리 삭감</span>
+                <span class="source">2025년 9월 기준</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">1만 건</span>
+                <span class="context">올해 AI 직접 해고</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">67%</span>
+                <span class="context">게임 디자인 감소</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">63%</span>
+                <span class="context">행정 지원 감소</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">58%</span>
+                <span class="context">소프트웨어 엔지니어링 감소</span>
+            </div>
+        </div>
+        
+        <!-- Card 5 -->
+        <div class="card">
+            <div class="card-number">5</div>
+            <div class="card-header">
+                <h1>AI 기업의 극적인 사례</h1>
+            </div>
+            
+            <h2>📌 Microsoft</h2>
+            <div class="stat-box">
+                <span class="number">$800억</span>
+                <span class="context">AI 투자액</span>
+            </div>
+            <div class="stat-box">
+                <span class="number">1만 5천 명</span>
+                <span class="context">동시 해고 인원</span>
+            </div>
+            <div class="stat-box">
+                <span class="number">30%</span>
+                <span class="context">AI가 작성하는 코드 비율</span>
+            </div>
+            
+            <h2>📌 Klarna</h2>
+            <div class="stat-box">
+                <span class="number">40% 감축</span>
+                <span class="context">5,527명 → 3,422명</span>
+            </div>
+            <div class="stat-box">
+                <span class="number">700명분</span>
+                <span class="context">AI가 처리하는 업무량</span>
+            </div>
+        </div>
+        
+        <!-- Card 6 -->
+        <div class="card">
+            <div class="card-number">6</div>
+            <div class="card-header">
+                <h1>산업별 영향</h1>
+            </div>
+            
+            <h2>📉 사라지는 직종</h2>
+            <ul>
+                <li>• 금융: 주니어 애널리스트, 기초 회계원</li>
+                <li>• IT: 단순 코딩, QA 테스터</li>
+                <li>• 법률: 문서 검토 변호사</li>
+                <li>• 마케팅: 콘텐츠 작성자</li>
+            </ul>
+            
+            <h2>📈 늘어나는 직종</h2>
+            <ul>
+                <li>• 의료: 간호사, 물리치료사</li>
+                <li>• 기술: AI 트레이너, 프롬프트 엔지니어</li>
+                <li>• 창의: UX 디자이너, 창의 디렉터</li>
+                <li>• 서비스: 전기기술자, 배관공</li>
+            </ul>
+            
+            <div class="stat-box">
+                <span class="number">35% 상승</span>
+                <span class="context">서비스직 시급 인상률</span>
+            </div>
+        </div>
+        
+        <!-- Card 7 -->
+        <div class="card">
+            <div class="card-number">7</div>
+            <div class="card-header">
+                <h1>엔트리 레벨 소멸의 의미</h1>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">200개</span>
+                <span class="context">PwC 영국 신입 직위 폐지</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">10.8%</span>
+                <span class="context">Z세대 실업률 (역대 최고)</span>
+                <span class="source">2025년 7월 기준</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">$160,000</span>
+                <span class="context">AI 네이티브 청년 연봉</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">💡 신입이 5년차 실력 발휘 가능</span>
+            </div>
+        </div>
+        
+        <!-- Card 8 -->
+        <div class="card">
+            <div class="card-number">8</div>
+            <div class="card-header">
+                <h1>글로벌 기업의 AI 성과 평가 시스템</h1>
+            </div>
+            
+            <h2>🏢 Amazon</h2>
+            <div class="stat-box">
+                <span class="number">23%</span>
+                <span class="context">AI 우수 활용자 평가 상승</span>
+            </div>
+            
+            <h2>🏦 JP Morgan</h2>
+            <div class="stat-box">
+                <span class="number">8-15%</span>
+                <span class="context">AI 레벨 3+ 추가 보너스</span>
+            </div>
+            
+            <h2>☁️ Salesforce</h2>
+            <div class="stat-box">
+                <span class="number">50%</span>
+                <span class="context">AI 성과 평가 반영 비율</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">2-3배</span>
+                <span class="context">AI 활용자 성과 향상</span>
+            </div>
+        </div>
+        
+        <!-- Card 9 -->
+        <div class="card">
+            <div class="card-number">9</div>
+            <div class="card-header">
+                <h1>Visa의 혁신적 모델</h1>
+            </div>
+            
+            <h2>🏆 AI Innovation Hackathon</h2>
+            <div class="stat-box">
+                <span class="number">87개국 12,000명</span>
+                <span class="context">2024년 참가 규모</span>
+            </div>
+            <div class="stat-box">
+                <span class="number">40%</span>
+                <span class="context">비개발자 참가 비율</span>
+            </div>
+            
+            <h2>🚀 Direct to VP</h2>
+            <div class="stat-box">
+                <span class="number">3,400개 → 127개</span>
+                <span class="context">아이디어 제출 → 프로젝트 전환</span>
+            </div>
+            
+            <h2>⭐ AI Champion</h2>
+            <div class="stat-box">
+                <span class="number">$2,000/월</span>
+                <span class="context">추가 수당</span>
+            </div>
+            <div class="stat-box">
+                <span class="number">68%</span>
+                <span class="context">1년 내 승진 (일반의 5배)</span>
+            </div>
+        </div>
+        
+        <!-- Card 10 -->
+        <div class="card">
+            <div class="card-number">10</div>
+            <div class="card-header">
+                <h1>AI가 만드는 새로운 계급 구조</h1>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">$160,000</span>
+                <span class="context">상위 20% AI 마스터 연봉</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">$38,000</span>
+                <span class="context">하위층 평균 연봉</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">4배</span>
+                <span class="context">상하위 소득 격차</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">⚠️ 경력 무관, AI 실력이 전부</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">⚠️ 전통적 연공서열 완전 붕괴</span>
+            </div>
+        </div>
+        
+        <!-- Card 11 -->
+        <div class="card">
+            <div class="card-number">11</div>
+            <div class="card-header">
+                <h1>살아남고 성장할 직업</h1>
+            </div>
+            
+            <h2>3대 안전 카테고리</h2>
+            
+            <div class="stat-box">
+                <span class="number">1️⃣ 육체적 기술직</span>
+                <span class="context">전기기술자, 배관공, 간호사</span>
+                <span class="source">시급 35% 상승 중</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">2️⃣ 창의적 리더십</span>
+                <span class="context">전략 기획, CEO, 창의 디렉터</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">3️⃣ 인간 공감직</span>
+                <span class="context">심리상담사, 특수교육 교사</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">EPOCH</span>
+                <span class="context">E-공감 P-존재감 O-판단<br>C-창의성 H-희망과 리더십</span>
+                <span class="source">MIT 연구</span>
+            </div>
+        </div>
+        
+        <!-- Card 12 -->
+        <div class="card">
+            <div class="card-number">12</div>
+            <div class="card-header">
+                <h1>가장 빨리 사라질 직업</h1>
+            </div>
+            
+            <h2>🚨 즉시 위험 (70%+ 대체)</h2>
+            <ul>
+                <li>• 데이터 입력원</li>
+                <li>• 텔레마케터</li>
+                <li>• 기초 회계원</li>
+                <li>• 단순 번역가</li>
+            </ul>
+            
+            <h2>⚠️ 3년 내 위험</h2>
+            <ul>
+                <li>• 주니어 변호사 (문서 검토)</li>
+                <li>• 주니어 금융 분석가</li>
+                <li>• 일반 콘텐츠 작가</li>
+            </ul>
+            
+            <h2>📍 5년 내 위험</h2>
+            <ul>
+                <li>• 중간 관리자</li>
+                <li>• 일반의 (진단)</li>
+                <li>• 세무사</li>
+                <li>• 부동산 중개인</li>
+            </ul>
+        </div>
+        
+        <!-- Card 13 -->
+        <div class="card">
+            <div class="card-number">13</div>
+            <div class="card-header">
+                <h1>효과적인 재교육 사례</h1>
+            </div>
+            
+            <h2>🛍️ Amazon</h2>
+            <div class="stat-box">
+                <span class="number">$12억</span>
+                <span class="context">Upskilling 2025 투자</span>
+            </div>
+            <div class="stat-box">
+                <span class="number">25만 명</span>
+                <span class="context">교육 인원</span>
+            </div>
+            <div class="stat-box">
+                <span class="number">$21,500</span>
+                <span class="context">추가 연소득</span>
+            </div>
+            
+            <h2>💻 IBM</h2>
+            <div class="stat-box">
+                <span class="number">8천명 해고 → 순증가</span>
+                <span class="context">AI 교육 후 재채용</span>
+            </div>
+            
+            <h2>📊 PwC</h2>
+            <div class="stat-box">
+                <span class="number">$30억 투자</span>
+                <span class="context">유지율 70%↑ 수익 218%↑</span>
+            </div>
+        </div>
+        
+        <!-- Card 14 -->
+        <div class="card">
+            <div class="card-number">14</div>
+            <div class="card-header">
+                <h1>개인이 익혀야 할 핵심 역량</h1>
+            </div>
+            
+            <h2>필수 3대 역량</h2>
+            
+            <div class="stat-box">
+                <span class="number">1. 프롬프트 엔지니어링</span>
+                <span class="context">AI와 대화하는 기술</span>
+                <span class="source">6시간이면 기초 습득</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">2. Human in the Loop</span>
+                <span class="context">AI 결과 검증 능력</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">3. 하이브리드 사고</span>
+                <span class="context">인간 창의성 + AI 분석력</span>
+            </div>
+            
+            <h2>추가 역량</h2>
+            <ul>
+                <li>• 공감 능력</li>
+                <li>• 비판적 사고</li>
+                <li>• 문제 정의 능력</li>
+            </ul>
+        </div>
+        
+        <!-- Card 15 -->
+        <div class="card">
+            <div class="card-number">15</div>
+            <div class="card-header">
+                <h1>중장년층을 위한 조언</h1>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">20-30년 경험 + AI</span>
+                <span class="context">= 최강의 시너지</span>
+            </div>
+            
+            <h2>3단계 접근법</h2>
+            
+            <div class="stat-box">
+                <span class="number">1단계: 작게 시작</span>
+                <span class="context">ChatGPT로 이메일 작성부터</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">2단계: 경험과 결합</span>
+                <span class="context">전문 분야에 AI 적용</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">3단계: 멘토 역할</span>
+                <span class="context">'AI를 아는 시니어' 포지셔닝</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">💡 50대 시니어 AI 컨설턴트 증가</span>
+            </div>
+        </div>
+        
+        <!-- Card 16 -->
+        <div class="card">
+            <div class="card-number">16</div>
+            <div class="card-header">
+                <h1>불확실한 미래를 위한 마인드셋</h1>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">"계획하되 집착하지 말라"</span>
+                <span class="context">핵심 철학</span>
+            </div>
+            
+            <h2>3가지 필수 마인드셋</h2>
+            
+            <div class="stat-box">
+                <span class="number">1. 호기심</span>
+                <span class="context">"이걸로 뭘 할 수 있을까?"</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">2. 실험 정신</span>
+                <span class="context">완벽하지 않아도 일단 시도</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="number">3. 협업 마인드</span>
+                <span class="context">AI는 경쟁자가 아닌 파트너</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">✅ 6개월 후도 예측 불가<br>✅ 유연성이 생명</span>
+            </div>
+        </div>
+        
+        <!-- Card 17 -->
+        <div class="card">
+            <div class="card-number">17</div>
+            <div class="card-header">
+                <h1>실천 메시지</h1>
+            </div>
+            
+            <div class="stat-box" style="background: #ffebee;">
+                <span class="number" style="font-size: 24px;">"AI가 일자리를 뺏는 게 아니라<br>AI를 쓰는 사람이 뺏는다"</span>
+            </div>
+            
+            <h2>오늘 당장 실천</h2>
+            
+            <div class="stat-box">
+                <span class="context">✅ ChatGPT 계정 만들기</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">✅ "제 직업은 [ ]입니다.<br>&nbsp;&nbsp;&nbsp;&nbsp;AI를 어떻게 활용할까요?"</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">✅ 하루 10분 AI와 대화</span>
+            </div>
+            
+            <div class="stat-box">
+                <span class="context">✅ 일주일 내 업무 하나 개선</span>
+            </div>
+            
+            <div class="stat-box" style="background: #e8f4fd;">
+                <span class="number">6개월 후</span>
+                <span class="context">상위 20% AI 활용자</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeCard(-1)">◀</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeCard(1)">▶</button>
+    </div>
+    
+    <script>
+        let currentCard = 0;
+        const cards = document.querySelectorAll('.card');
+        const totalCards = cards.length;
+        
+        function showCard(index) {
+            cards.forEach(card => card.classList.remove('active'));
+            cards[index].classList.add('active');
+            
+            // Update page indicator
+            document.getElementById('pageIndicator').textContent = `${index + 1} / ${totalCards}`;
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === totalCards - 1;
+        }
+        
+        function changeCard(direction) {
+            currentCard += direction;
+            if (currentCard < 0) currentCard = 0;
+            if (currentCard >= totalCards) currentCard = totalCards - 1;
+            showCard(currentCard);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeCard(-1);
+            if (e.key === 'ArrowRight') changeCard(1);
+        });
+        
+        // Touch swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) changeCard(1);  // Swipe left
+            if (touchEndX > touchStartX + 50) changeCard(-1); // Swipe right
+        }
+        
+        // Initialize
+        showCard(0);
+    </script>
+</body>
+</html>
