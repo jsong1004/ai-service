@@ -217,6 +217,36 @@ export default function BlogContent({ html, styles }: BlogContentProps) {
     // Initialize charts after a small delay to ensure Chart.js is loaded
     setTimeout(initializeCharts, 100)
 
+    // Initialize tab interactions for posts that use .tab-btn/.tab-content
+    const tabs = Array.from(document.querySelectorAll<HTMLElement>('.tab-btn'))
+    const contents = Array.from(document.querySelectorAll<HTMLElement>('.tab-content'))
+
+    const handleTabClick = (tab: HTMLElement) => () => {
+      const targetId = tab.dataset.tab
+      tabs.forEach((t) => t.classList.remove('active-tab'))
+      tab.classList.add('active-tab')
+      contents.forEach((content) => {
+        content.classList.remove('active-content')
+        if (content.id === targetId) {
+          content.classList.add('active-content')
+        }
+      })
+    }
+
+    tabs.forEach((tab) => tab.addEventListener('click', handleTabClick(tab)))
+
+    // Ensure last process card text is visible and correct
+    const purpleCards = Array.from(
+      document.querySelectorAll<HTMLElement>('.process-step.bg-purple-600')
+    )
+    purpleCards.forEach((card) => {
+      card.classList.add('text-white')
+      const heading = card.querySelector('h4') as HTMLElement | null
+      if (heading && (!heading.textContent || heading.textContent.trim() === '')) {
+        heading.textContent = 'Human Feedback'
+      }
+    })
+
     // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll)
@@ -226,6 +256,9 @@ export default function BlogContent({ html, styles }: BlogContentProps) {
       delete (window as any).openStrategySessionModal
       delete (window as any).closeStrategySessionModal
       delete (window as any).submitForm
+
+      // Remove tab listeners
+      tabs.forEach((tab) => tab.removeEventListener('click', handleTabClick(tab)))
     }
   }, [html])
 

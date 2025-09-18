@@ -3,530 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibe Coding: When Your Intent Matters More Than Your Syntax</title>
-    <meta name="description" content="Vibe coding is intent-first development—where clear prompts and strong fundamentals matter more than syntax. Learn tools, levels, and best practices." />
-    <meta name="date" content="Mar 23, 2023" />
-    <meta name="author" content="Admin" />
-    <meta name="readTime" content="2 min read" />
-    <meta name="image" content="/images/blog/vibe-coding.svg" />
+    <title>Vibe Coding: An Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Harmony -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling educational site. The structure is designed to guide the user from a high-level concept ('What is Vibe Coding?') down to specific details and processes. It uses interactive tabs for the 'Spectrum of Complexity' to allow users to explore different levels without being overwhelmed by information, which is more user-friendly than a long, static list. The final sections on the development process and the role of expertise provide a clear takeaway. This linear, interactive flow was chosen to make a new technical concept easily digestible for a broad audience. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Types of Vibe Coding (Simple, Interactive, Complete) -> Goal: Organize & Compare -> Presentation Method: Interactive Tabs (HTML/CSS/JS) -> Interaction: User clicks a tab to reveal detailed content for that category. -> Justification: Tabs are a space-efficient and intuitive way to present categorized information, encouraging user exploration and direct comparison between complexities.
+        - Report Info: The Process (Intent -> Prompt -> Plan -> etc.) -> Goal: Inform & Organize -> Presentation Method: A stylized flowchart built with HTML/Tailwind CSS. -> Interaction: Static visual with clear text to explain a linear process. -> Justification: A visual flowchart is more engaging and easier to understand than a simple text list for representing a sequential process.
+        - Report Info: Core concept (Intent is key) -> Goal: Inform -> Presentation Method: Large, bold typography in a dedicated section. -> Interaction: None. -> Justification: Emphasizes the foundational principle of Vibe Coding through visual hierarchy.
+        - Library/Method: Vanilla JS for tab interaction. All visuals are created with structured HTML and Tailwind CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #2c3e50;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #333;
         }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        .active-tab {
+            background-color: #8B5CF6;
+            color: #FFFFFF;
         }
-        
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        .tab-content {
+            display: none;
         }
-        
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path fill="rgba(255,255,255,0.1)" d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path></svg>');
-            background-size: cover;
+        .active-content {
+            display: block;
         }
-        
-        h1 {
-            font-size: 2.8em;
-            margin-bottom: 10px;
-            position: relative;
-            animation: fadeInUp 0.8s ease-out;
+        .process-step {
+            transition: transform 0.2s ease-in-out;
         }
-        
-        .subtitle {
-            font-size: 1.3em;
-            opacity: 0.95;
-            position: relative;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .content {
-            padding: 40px;
-        }
-        
-        h2 {
-            color: #667eea;
-            margin: 40px 0 20px 0;
-            font-size: 2em;
-            border-left: 4px solid #667eea;
-            padding-left: 15px;
-        }
-        
-        h3 {
-            color: #764ba2;
-            margin: 30px 0 15px 0;
-            font-size: 1.5em;
-        }
-        
-        p {
-            margin-bottom: 20px;
-            font-size: 1.1em;
-            line-height: 1.8;
-        }
-        
-        .process-flow {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 30px;
-            margin: 30px 0;
-            text-align: center;
-        }
-        
-        .flow-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .flow-item {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            flex: 1;
-            min-width: 150px;
-            transition: transform 0.3s ease;
-        }
-        
-        .flow-item:hover {
+        .process-step:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102,126,234,0.2);
         }
-        
-        .flow-arrow {
-            font-size: 2em;
-            color: #667eea;
+        .arrow {
+            font-size: 2rem;
+            line-height: 1;
+            color: #D1D5DB;
         }
-        
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .comparison-table th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-size: 1.1em;
-        }
-        
-        .comparison-table td {
-            padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .comparison-table tr:hover {
-            background: #f8f9fa;
-        }
-        
-        .level-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        
-        .level-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border-top: 5px solid;
-        }
-        
-        .level-card:nth-child(1) {
-            border-top-color: #4CAF50;
-        }
-        
-        .level-card:nth-child(2) {
-            border-top-color: #FF9800;
-        }
-        
-        .level-card:nth-child(3) {
-            border-top-color: #f44336;
-        }
-        
-        .level-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-        
-        .level-number {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            line-height: 40px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        
-        .best-practices {
-            background: #f0f7ff;
-            border-left: 5px solid #667eea;
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 5px;
-        }
-        
-        .best-practices ol {
-            margin-left: 20px;
-        }
-        
-        .best-practices li {
-            margin: 15px 0;
-            font-size: 1.05em;
-        }
-        
-        .best-practices li strong {
-            color: #667eea;
-        }
-        
-        .tools-badge {
-            display: inline-block;
-            background: #e3f2fd;
-            color: #1976d2;
-            padding: 5px 12px;
-            border-radius: 20px;
-            margin: 5px;
-            font-size: 0.9em;
-        }
-        
-        .chart-container {
-            margin: 40px 0;
-            padding: 30px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-        
-        .complexity-chart {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            height: 250px;
-            margin-top: 20px;
-        }
-        
-        .bar-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-        }
-        
-        .bar {
-            width: 60%;
-            background: linear-gradient(to top, #667eea, #764ba2);
-            border-radius: 5px 5px 0 0;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .bar:hover {
-            opacity: 0.8;
-        }
-        
-        .bar-label {
-            margin-top: 10px;
-            font-weight: bold;
-            text-align: center;
-        }
-        
-        .bar-value {
-            position: absolute;
-            top: -25px;
-            width: 100%;
-            text-align: center;
-            font-weight: bold;
-            color: #667eea;
-        }
-        
-        .icon {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-        }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
-            border: 2px solid #667eea;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 30px 0;
-        }
-        
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>🚀 Vibe Coding</h1>
-            <p class="subtitle">When Your Intent Matters More Than Your Syntax</p>
+<body class="antialiased">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-purple-700">Vibe Coding</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Translating your intent into functional applications with the power of AI.</p>
         </header>
-        
-        <div class="content">
-            <h2>The New Era of Intent-First Development</h2>
-            <p>Remember when coding meant memorizing syntax, debugging semicolons, and wrestling with compiler errors? Welcome to the era of "vibe coding" – where your ability to articulate <em>what</em> you want matters more than knowing <em>how</em> to build it.</p>
-            
-            <p>In vibe coding, the most crucial skill isn't your knowledge of programming languages or frameworks. It's your ability to translate your vision into clear prompts that AI can understand and execute. Think of it as programming through conversation rather than code.</p>
-            
-            <h2>The Intent-to-Prompt Pipeline</h2>
-            
-            <div class="process-flow">
-                <h3 style="margin-bottom: 30px;">The Vibe Coding Process</h3>
-                <div class="flow-container">
-                    <div class="flow-item">
-                        <div class="icon">💡</div>
-                        <strong>Your Intent</strong>
-                    </div>
-                    <span class="flow-arrow">→</span>
-                    <div class="flow-item">
-                        <div class="icon">📝</div>
-                        <strong>Prompt</strong>
-                    </div>
-                    <span class="flow-arrow">→</span>
-                    <div class="flow-item">
-                        <div class="icon">🤖</div>
-                        <strong>AI Plan</strong>
-                    </div>
-                    <span class="flow-arrow">→</span>
-                    <div class="flow-item">
-                        <div class="icon">⚡</div>
-                        <strong>Execution</strong>
-                    </div>
-                    <span class="flow-arrow">→</span>
-                    <div class="flow-item">
-                        <div class="icon">👤</div>
-                        <strong>Human Feedback</strong>
-                    </div>
-                </div>
-            </div>
-            
-            <p>The magic happens in two steps:</p>
-            <ol>
-                <li><strong>Clarifying your intent</strong>: What exactly do you want to build? What problem are you solving?</li>
-                <li><strong>Crafting the perfect prompt</strong>: How do you communicate this intent so an LLM delivers exactly what you envision?</li>
-            </ol>
-            
-            <h2>Three Levels of Vibe Coding</h2>
-            
-            <div class="level-cards">
-                <div class="level-card">
-                    <span class="level-number">1</span>
-                    <h3>Simple Tasks</h3>
-                    <p><strong>The Gateway Drug</strong></p>
-                    <div style="margin: 15px 0;">
-                        <span class="tools-badge">ChatGPT</span>
-                        <span class="tools-badge">Claude</span>
-                        <span class="tools-badge">Gemini</span>
-                    </div>
-                    <p>Perfect for:</p>
-                    <ul>
-                        <li>Landing pages</li>
-                        <li>Information sites</li>
-                        <li>Marketing copy</li>
-                        <li>Simple scripts</li>
-                        <li>Basic automation</li>
-                    </ul>
-                </div>
-                
-                <div class="level-card">
-                    <span class="level-number">2</span>
-                    <h3>Interactive Frontend</h3>
-                    <p><strong>The Sweet Spot</strong></p>
-                    <div style="margin: 15px 0;">
-                        <span class="tools-badge">V0</span>
-                        <span class="tools-badge">Loveable</span>
-                        <span class="tools-badge">Bolt</span>
-                    </div>
-                    <p>When you need:</p>
-                    <ul>
-                        <li>Dynamic UIs</li>
-                        <li>Interactive prototypes</li>
-                        <li>Design-heavy apps</li>
-                        <li>Rapid MVP development</li>
-                    </ul>
-                </div>
-                
-                <div class="level-card">
-                    <span class="level-number">3</span>
-                    <h3>Complete Full-Stack</h3>
-                    <p><strong>The Power Move</strong></p>
-                    <div style="margin: 15px 0;">
-                        <span class="tools-badge">Replit Agent</span>
-                        <span class="tools-badge">Cursor</span>
-                        <span class="tools-badge">Claude Code</span>
-                    </div>
-                    <p>For building:</p>
-                    <ul>
-                        <li>Production apps</li>
-                        <li>Complex backends</li>
-                        <li>Multi-service architecture</li>
-                        <li>Enterprise solutions</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h2>Tool Comparison Matrix</h2>
-            
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Level</th>
-                        <th>Complexity</th>
-                        <th>Learning Curve</th>
-                        <th>Time to Deploy</th>
-                        <th>Best For</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Simple Tasks</strong></td>
-                        <td>⭐</td>
-                        <td>5 minutes</td>
-                        <td>Instant</td>
-                        <td>Quick prototypes, content</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Interactive Frontend</strong></td>
-                        <td>⭐⭐⭐</td>
-                        <td>1-2 hours</td>
-                        <td>Same day</td>
-                        <td>MVPs, user testing</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Full-Stack Apps</strong></td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                        <td>1-2 days</td>
-                        <td>1-2 weeks</td>
-                        <td>Production systems</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h2>The Knowledge Paradox</h2>
-            
-            <div class="chart-container">
-                <h3>Knowledge Requirements vs. Complexity</h3>
-                <div class="complexity-chart">
-                    <div class="bar-group">
-                        <div class="bar" style="height: 30%;">
-                            <span class="bar-value">30%</span>
-                        </div>
-                        <div class="bar-label">Simple Tasks</div>
-                    </div>
-                    <div class="bar-group">
-                        <div class="bar" style="height: 60%;">
-                            <span class="bar-value">60%</span>
-                        </div>
-                        <div class="bar-label">Interactive</div>
-                    </div>
-                    <div class="bar-group">
-                        <div class="bar" style="height: 90%;">
-                            <span class="bar-value">90%</span>
-                        </div>
-                        <div class="bar-label">Full-Stack</div>
-                    </div>
-                </div>
-                <p style="text-align: center; margin-top: 20px; color: #666;">
-                    <em>Traditional programming knowledge becomes MORE valuable as complexity increases</em>
+
+        <main>
+            <section id="introduction" class="mb-16 max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4 text-gray-800">What is Vibe Coding?</h2>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Vibe coding is a new paradigm in software development where the primary skill is not writing code line-by-line, but clearly communicating your vision or "vibe" to an AI coding partner. It's about articulating your intent so effectively that an LLM can understand it and generate the best possible result. The quality of your prompt directly determines the quality of the output.
                 </p>
-            </div>
-            
-            <p>Here's the interesting twist: as you move toward more complex applications, traditional programming knowledge becomes <em>more</em> valuable, not less.</p>
-            
-            <div class="highlight-box">
-                <p><strong>Why?</strong> Because while you might not be writing code, you need to:</p>
-                <ul>
-                    <li>Recognize good system design</li>
-                    <li>Spot security vulnerabilities</li>
-                    <li>Understand performance implications</li>
-                    <li>Know what's possible (and what's not)</li>
-                    <li>Guide the AI away from anti-patterns</li>
-                </ul>
-                <p>Think of it like being a film director. You don't need to operate the camera, but understanding cinematography makes you better at directing the cameraman.</p>
-            </div>
-            
-            <h2>Best Practices for Vibe Coding</h2>
-            
-            <div class="best-practices">
-                <ol>
-                    <li><strong>Start with clear outcomes</strong>: Don't describe the solution; describe the problem and desired result</li>
-                    <li><strong>Iterate relentlessly</strong>: Your first prompt won't be perfect. Refine based on what you get</li>
-                    <li><strong>Learn the language of your tools</strong>: Each AI has its quirks. Claude likes detail, GPT-4 appreciates context, Gemini excels with examples</li>
-                    <li><strong>Don't abandon fundamentals</strong>: Understanding coding concepts helps you spot issues and guide improvements</li>
-                    <li><strong>Document your prompts</strong>: Good prompts are reusable assets</li>
-                    <li><strong>Version control everything</strong>: Even though you're not writing code, save working versions frequently. AI outputs can vary, and today's perfect solution might be tomorrow's lost code</li>
-                    <li><strong>Don't be afraid to start fresh</strong>: LLMs generate code lightning-fast, but they can get stuck in debugging loops. If you've spent 15 minutes on a bug, consider reverting to your last working version and reprompting with lessons learned. Sometimes a fresh generation works better than endless patches</li>
-                </ol>
-            </div>
-            
-            <h2>The Future is Already Here</h2>
-            
-            <p>Vibe coding isn't replacing traditional development – it's augmenting it. Junior developers can build senior-level applications. Senior developers can 10x their output. Non-developers can bring their ideas to life.</p>
-            
-            <p>The democratization of software creation is happening now. The question isn't whether you should learn vibe coding, but how quickly you can adapt to this new paradigm.</p>
-            
-            <p style="font-size: 1.3em; text-align: center; margin-top: 40px; color: #667eea;">
-                <strong>Your next app might be just a conversation away.</strong>
-            </p>
-        </div>
-        
+                <div class="mt-8 p-6 bg-purple-100 border-l-4 border-purple-500 rounded-r-lg">
+                    <p class="text-xl font-semibold text-purple-800">The most important part of Vibe Coding is your <span class="underline decoration-wavy">intent</span>, and then successfully translating that intent into a clear, effective prompt.</p>
+                </div>
+            </section>
+
+            <section id="spectrum" class="mb-16">
+                 <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">The Spectrum of Complexity</h2>
+                    <p class="mt-2 text-lg text-gray-600">Vibe coding applies to tasks of all sizes. Click below to explore different levels.</p>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex flex-col sm:flex-row justify-center border-b border-gray-200 mb-6 rounded-lg p-1 bg-gray-100">
+                        <button data-tab="simple" class="tab-btn flex-1 py-3 px-4 text-lg font-medium text-gray-600 rounded-md transition-colors duration-200 active-tab">Simple Tasks</button>
+                        <button data-tab="interactive" class="tab-btn flex-1 py-3 px-4 text-lg font-medium text-gray-600 rounded-md transition-colors duration-200">Interactive Frontend</button>
+                        <button data-tab="complete" class="tab-btn flex-1 py-3 px-4 text-lg font-medium text-gray-600 rounded-md transition-colors duration-200">Complete Services</button>
+                    </div>
+
+                    <div id="simple" class="tab-content active-content p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-3">1. Simple Tasks</h3>
+                        <p class="text-gray-700 mb-4">This level involves generating self-contained assets or simple applications. Your intent is focused on a single, well-defined output.</p>
+                        <div class="grid md:grid-cols-2 gap-4 text-left">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Example Use Cases:</h4>
+                                <ul class="list-disc list-inside text-gray-600 mt-1">
+                                    <li>Creating a simple informational website</li>
+                                    <li>Generating a specific image or logo</li>
+                                    <li>Writing a script for data conversion</li>
+                                    <li>Building a single-component UI element</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Common Tools:</h4>
+                                <ul class="list-disc list-inside text-gray-600 mt-1">
+                                    <li>ChatGPT</li>
+                                    <li>Gemini</li>
+                                    <li>Claude</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-left bg-sky-50 border border-sky-100 rounded-lg p-5 shadow-sm bg-purple-100">
+                            <h4 class="font-semibold text-gray-800 mb-2">How this article was created</h4>
+                            <ol class="list-decimal list-inside space-y-4 text-gray-700">
+                                <li>
+                                    Asked Gemini to create a blog post.
+                                    <blockquote class="mt-2 border-l-4 border-gray-300 pl-4 text-sm text-gray-700">
+                                        "Could you create a blog post?"<br><br>
+                                        Blog content draft: Vibe Coding<br><br>
+                                        What matters most is your intent. The next step is converting that intent into a prompt so the LLM can better understand it and provide the best results.<br><br>
+                                        Types of Vibe Coding<br><br>
+                                        Simple tasks: creating a simple website, info page, image, etc. (ChatGPT, Gemini, Claude — LLM services)<br><br>
+                                        Interactive and frontend-heavy services: V0, Loveable (no-code services)<br><br>
+                                        Complete services (frontend + backend): Replit, Cursor, Claude Code, Gemini CLI, OpenAI Codex (complex applications)<br><br>
+                                        Process: Your intent → Prompt → Plan → Execution → Human Feedback (human in the loop)<br><br>
+                                        As you move further toward more complex services—such as system design, algorithms, best practices, and security—having more knowledge and experience becomes increasingly valuable.
+                                    </blockquote>
+                                </li>
+                                <li>
+                                    Asked more visual artifact
+                                    <blockquote class="mt-2 border-l-4 border-gray-300 pl-4 text-sm text-gray-700">
+                                        "Love it. I’m wondering if you can add images, tables, or charts to make the articles more engaging and visually appealing."
+                                    </blockquote>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div id="interactive" class="tab-content p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-3">2. Interactive & Frontend-Heavy</h3>
+                        <p class="text-gray-700 mb-4">Here, the focus is on creating dynamic user interfaces and experiences, often without writing traditional code. You provide the intent, and the service builds the interactive components.</p>
+                         <div class="grid md:grid-cols-2 gap-4 text-left">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Example Use Cases:</h4>
+                                <ul class="list-disc list-inside text-gray-600 mt-1">
+                                    <li>Prototyping a user dashboard</li>
+                                    <li>Building a custom landing page with forms</li>
+                                    <li>Creating an interactive data visualization</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Common Tools:</h4>
+                                <ul class="list-disc list-inside text-gray-600 mt-1">
+                                    <li>V0.dev</li>
+                                    <li>Loveable</li>
+                                    <li>Other No-Code/Low-Code AI builders</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-left bg-sky-50 border border-sky-100 rounded-lg p-5 shadow-sm bg-purple-100">
+                            <h4 class="font-semibold text-gray-800 mb-2">How this demo was built</h4>
+                            <ol class="list-decimal list-inside space-y-4 text-gray-700">
+                                <li>
+                                    Asked Claude to generate a prompt for V0.
+                                    <blockquote class="mt-2 border-l-4 border-gray-300 pl-4 text-sm text-gray-700">
+                                        A simple landing page prompt for v0 (Vibe Coding) to promote a Business Automation Workshop.
+                                    </blockquote>
+                                </li>
+                                <li>
+                                    Then opened up V0 and created a Demo project.
+                                </li>
+                                <li>
+                                    Pasted the prompt created by Claude
+                                    <blockquote class="mt-2 border-l-4 border-gray-300 pl-4 text-sm text-gray-700">
+                                        Create a modern, professional landing page for a Business Automation Workshop. <br><br>
+                                        Design style: Clean, tech-forward with subtle gradient accents. Use a blue and white color scheme with accent colors in teal or purple. Include smooth animations on scroll.<br><br>
+                                        Sections needed:<br><br>
+                                        1. Hero Section:<br>
+                                        - Headline: "Transform Your Business with Smart Automation"<br>
+                                        - Subheadline: "Join our intensive 2-day workshop and learn to save 20+ hours per week"<br>
+                                        - CTA button: "Reserve Your Spot" (prominent, contrasting color)<br>
+                                        - Background: Abstract geometric pattern or subtle tech-inspired animation<br>
+                                        - Include a countdown timer for early bird pricing<br><br>
+                                        2. Problem/Solution Section:<br>
+                                        - Title: "Stop Drowning in Repetitive Tasks"<br>
+                                        - 3 pain points with icons (manual data entry, inefficient workflows, human errors)<br>
+                                        - Transform arrow leading to solutions<br><br>
+                                        3. What You'll Learn:<br>
+                                        - Grid of 6 key topics with icons:<br>
+                                        • Workflow automation fundamentals<br>
+                                        • AI tools for business<br>
+                                        • No-code automation platforms<br>
+                                        • Email and CRM automation<br>
+                                        • Data integration strategies<br>
+                                        • ROI measurement<br><br>
+                                        4. Workshop Details:<br>
+                                        - Date, time, location (or virtual)<br>
+                                        - Format: Interactive sessions, hands-on exercises<br>
+                                        - What's included: Workbook, templates, tool access, certificate<br><br>
+                                        5. Instructor/Credibility:<br>
+                                        - Brief bio with professional photo<br>
+                                        - Company logos of past clients<br>
+                                        - "500+ businesses automated" stat<br><br>
+                                        6. Testimonials:<br>
+                                        - Carousel of 3 testimonials with photos<br>
+                                        - Include specific results/metrics<br><br>
+                                        7. Pricing:<br>
+                                        - Early bird and regular pricing cards<br>
+                                        - "Save $200" badge on early bird<br>
+                                        - Payment icons for trust<br><br>
+                                        8. FAQ Section:<br>
+                                        - Expandable accordion with 5-6 common questions<br><br>
+                                        9. Final CTA:<br>
+                                        - "Ready to Automate Your Success?"<br>
+                                        - Email capture with "Get Workshop Details" button<br>
+                                        - Money-back guarantee badge<br><br>
+                                        Footer: Contact info, social links, privacy policy<br><br>
+                                        Make it responsive, accessibility-friendly, and optimized for conversions. Include hover effects on buttons and cards. Use Inter or similar modern font.
+                                    </blockquote>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div id="complete" class="tab-content p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold text-purple-700 mb-3">3. Complete Services (Frontend + Backend)</h3>
+                        <p class="text-gray-700 mb-4">This is the most advanced level, involving the creation of full-stack applications. Your intent must cover not just the UI, but also backend logic, database structure, and deployment.</p>
+                         <div class="grid md:grid-cols-2 gap-4 text-left">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Example Use Cases:</h4>
+                                <ul class="list-disc list-inside text-gray-600 mt-1">
+                                    <li>Developing a full e-commerce site</li>
+                                    <li>Building a social media application</li>
+                                    <li>Creating a SaaS product with user accounts</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Common Tools:</h4>
+                                <ul class="list-disc list-inside text-gray-600 mt-1">
+                                    <li>Replit</li>
+                                    <li>Cursor</li>
+                                    <li>Gemini in Project IDX / VS Code</li>
+                                    <li>GitHub Copilot Workspace</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-left bg-sky-50 border border-sky-100 rounded-lg p-5 shadow-sm bg-purple-100">
+                            <h4 class="font-semibold text-gray-800 mb-2">How this full service was built and deployed</h4>
+                            <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                                <li>Use V0 for UI design</li>
+                                <li>Download the code</li>
+                                <li>Use Claude Code or Cursor to develop backend and debug</li>
+                            </ol>
+                            <div class="mt-4">
+                                <h5 class="font-semibold text-gray-800">Service developed and deployed</h5>
+                                <ul class="list-disc list-inside text-gray-700 mt-1">
+                                    <li><a href="https://myjob.ai-biz.app" class="text-blue-600 underline" target="_blank" rel="noopener noreferrer">myjob.ai-biz.app</a></li>
+                                    <li><a href="https://www.ai-biz.app" class="text-blue-600 underline" target="_blank" rel="noopener noreferrer">www.ai-biz.app</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="process" class="mb-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-800">The Development Process</h2>
+                    <p class="mt-2 text-lg text-gray-600">The journey from an idea to a finished product follows a clear, iterative path.</p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="process-step text-center p-4 bg-white rounded-lg shadow-lg w-48 h-32 flex flex-col justify-center">
+                        <p class="text-2xl mb-1">🎯</p>
+                        <h4 class="font-bold text-lg">Your Intent</h4>
+                        <p class="text-sm text-gray-500">The core idea</p>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="process-step text-center p-4 bg-white rounded-lg shadow-lg w-48 h-32 flex flex-col justify-center">
+                        <p class="text-2xl mb-1">✍️</p>
+                        <h4 class="font-bold text-lg">Prompt</h4>
+                        <p class="text-sm text-gray-500">Translate intent</p>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="process-step text-center p-4 bg-white rounded-lg shadow-lg w-48 h-32 flex flex-col justify-center">
+                        <p class="text-2xl mb-1">🗺️</p>
+                        <h4 class="font-bold text-lg">Plan</h4>
+                        <p class="text-sm text-gray-500">AI outlines steps</p>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="process-step text-center p-4 bg-white rounded-lg shadow-lg w-48 h-32 flex flex-col justify-center">
+                        <p class="text-2xl mb-1">⚙️</p>
+                        <h4 class="font-bold text-lg">Execution</h4>
+                        <p class="text-sm text-gray-500">AI generates code</p>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="process-step text-center p-4 bg-purple-600 text-white rounded-lg shadow-lg w-48 h-32 flex flex-col justify-center">
+                        <p class="text-2xl mb-1">🧑‍💻</p>
+                        <h4 class="font-bold text-lg">Human Feedback</h4>
+                        <p class="text-sm text-purple-200">Refine & guide</p>
+                    </div>
+                </div>
+            </section>
+
+             <section id="expertise" class="max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 border-purple-500">
+                    <h2 class="text-3xl font-bold text-gray-800 text-center mb-4">Expertise Matters More Than Ever</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        As you move from simple tasks to complex services, your knowledge becomes increasingly vital. The AI can generate code, but it doesn't understand the nuances of great software. Your expertise is the critical feedback that guides the AI.
+                    </p>
+                    <ul class="mt-6 space-y-3 text-lg">
+                        <li class="flex items-start">
+                            <span class="text-purple-600 font-bold mr-3">✓</span>
+                            <span class="text-gray-700"><strong class="font-semibold text-gray-800">System Design:</strong> You provide the architectural vision that ensures scalability and maintainability.</span>
+                        </li>
+                        <li class="flex items-start">
+                             <span class="text-purple-600 font-bold mr-3">✓</span>
+                            <span class="text-gray-700"><strong class="font-semibold text-gray-800">Algorithms & Best Practices:</strong> You ensure the generated code is efficient, readable, and follows industry standards.</span>
+                        </li>
+                         <li class="flex items-start">
+                           <span class="text-purple-600 font-bold mr-3">✓</span>
+                            <span class="text-gray-700"><strong class="font-semibold text-gray-800">Security:</strong> You are the guardian against vulnerabilities that an AI might overlook.</span>
+                        </li>
+                    </ul>
+                     <p class="mt-6 text-lg text-center font-medium text-gray-800">
+                        In Vibe Coding, the human is not just in the loop; the human is the architect.
+                    </p>
+                </div>
+            </section>
+        </main>
+
 
     </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.dataset.tab;
+
+                tabs.forEach(t => t.classList.remove('active-tab'));
+                tab.classList.add('active-tab');
+
+                contents.forEach(content => {
+                    content.classList.remove('active-content');
+                    if (content.id === targetId) {
+                        content.classList.add('active-content');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
