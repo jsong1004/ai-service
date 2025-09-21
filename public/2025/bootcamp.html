@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding Boot Camp - Transform Your Life in 5 Days</title>
+    <meta name="description" content="Master no-code tools, learn proven techniques, and build your first revenue-ready app in just 5 evenings. Limited seats available!">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            min-height: 100vh;
+            overflow: auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+        
+        .container {
+            width: 100%;
+            min-height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 60px;
+        }
+        
+        /* Background decoration */
+        .bg-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.1;
+        }
+        
+        .bg-decoration::before {
+            content: '{ }';
+            position: absolute;
+            font-size: 400px;
+            font-weight: 900;
+            color: white;
+            top: -100px;
+            left: -100px;
+            transform: rotate(-15deg);
+        }
+        
+        .bg-decoration::after {
+            content: '</>';
+            position: absolute;
+            font-size: 300px;
+            font-weight: 900;
+            color: white;
+            bottom: -50px;
+            right: -50px;
+            transform: rotate(15deg);
+        }
+        
+        /* Enhanced Floating emoji decorations */
+        .emoji-float {
+            position: absolute;
+            font-size: 40px;
+            animation: enhanced-float 4s ease-in-out infinite;
+        }
+        
+        @keyframes enhanced-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(2deg); }
+            75% { transform: translateY(-5px) rotate(-1deg); }
+        }
+        
+        .emoji-1 {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .emoji-2 {
+            top: 15%;
+            right: 15%;
+            animation-delay: 0.5s;
+        }
+        
+        .emoji-3 {
+            bottom: 20%;
+            left: 8%;
+            animation-delay: 1s;
+        }
+        
+        .emoji-4 {
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 1.5s;
+        }
+        
+        /* Main content */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            letter-spacing: 1px;
+        }
+        
+        h1 {
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 4px 4px 20px rgba(0,0,0,0.2);
+            line-height: 1;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, #ffd700, #ffeb3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        .subtitle {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        /* Urgency Badge */
+        .urgency-badge {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 10px 0;
+            display: inline-block;
+            animation: pulse 2s infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .highlight-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            text-align: left;
+            color: #333;
+        }
+        
+        .highlight-box h2 {
+            color: #764ba2;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box p {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 12px 0 6px;
+        }
+
+        .highlight-box li {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 6px 0;
+        }
+
+        .highlight-box strong {
+            color: #333;
+        }
+        
+        /* Value Proposition */
+        .value-proposition {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .value-proposition h2 {
+            color: #764ba2;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .value-proposition p {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-highlight {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin: 15px 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        /* Testimonial Section */
+        .testimonial-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .testimonial-section h2 {
+            color: #764ba2;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial {
+            font-style: italic;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 16px;
+        }
+        
+        /* What You'll Build */
+        .what-youll-build {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+        }
+        
+        .what-youll-build h2 {
+            color: #764ba2;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .project-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .project-example {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+        
+        .project-example h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .project-example p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        /* Instructor Section */
+        .instructor-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .instructor-section h2 {
+            color: #764ba2;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .instructor-bio p {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        /* Countdown Timer */
+        .countdown-timer {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+        }
+        
+        .countdown-timer h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .timer-unit {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 70px;
+        }
+        
+        .timer-number {
+            font-size: 24px;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .timer-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        
+        .feature {
+            color: #333;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+        
+        .feature-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .bootcamp-cards {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 30px;
+        }
+        
+        .bootcamp-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bootcamp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .bootcamp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        .bootcamp-card h3 {
+            color: #764ba2;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .location-icon {
+            font-size: 28px;
+        }
+        
+        .bootcamp-dates {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        
+        .bootcamp-dates strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .time-info {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-align: left;
+        }
+        
+        .address {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            text-align: left;
+        }
+        
+        .register-btn {
+            display: block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
+            animation: pulse-glow 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
+            }
+            50% { 
+                transform: scale(1.02);
+                box-shadow: 0 8px 25px rgba(118, 75, 162, 0.5);
+            }
+        }
+        
+        .register-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .register-btn:hover::before {
+            left: 100%;
+        }
+        
+        .register-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(118, 75, 162, 0.4);
+            background: linear-gradient(135deg, #5a67d8, #6b3d99);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .divider {
+            width: 100px;
+            height: 4px;
+            background: white;
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+        
+        /* CTA section */
+        .cta-section {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .cta-section-content {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-size: 16px;
+            line-height: 1.6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 100%;
+        }
+        
+        .cta-section-content h2 {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+        
+        .cta-section-content p {
+            color: #333;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .cta-section-content a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .cta-section-content a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 48px;
+            }
+            
+            .subtitle {
+                font-size: 20px;
+            }
+            
+            .bootcamp-cards {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .features {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .feature {
+                flex: 1 1 45%;
+                min-width: 120px;
+            }
+            
+            .highlight-box, .value-proposition, .testimonial-section, 
+            .what-youll-build, .instructor-section {
+                margin: 15px 10px;
+                padding: 20px 25px;
+            }
+            
+            .cta-section {
+                margin: 30px 10px 15px;
+            }
+            
+            .project-examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .timer-display {
+                gap: 10px;
+            }
+            
+            .timer-unit {
+                min-width: 60px;
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .highlight-box p, .value-proposition p {
+                font-size: 16px;
+            }
+            
+            .feature {
+                flex: 1 1 100%;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-decoration"></div>
+    
+    <!-- Floating emojis -->
+    <div class="emoji-float emoji-1">🚀</div>
+    <div class="emoji-float emoji-2">💰</div>
+    <div class="emoji-float emoji-3">💻</div>
+    <div class="emoji-float emoji-4">✨</div>
+    
+    <div class="container">
+        <div class="content">
+            <div class="badge">5 DAYS TO TRANSFORM YOUR LIFE</div>
+            
+            <h1>VIBE CODING</h1>
+            <h1 class="gradient-text">BOOT CAMP</h1>
+            
+            <p class="subtitle">From Zero to Deployed App in 5 Evenings</p>
+            
+            
+            <div class="highlight-box">
+                <p>🚀 Ever felt like everyone's building million-dollar apps except you?</p>
+                
+                <p>You've heard the stories: "I built an app in a weekend and now make $20K/month!" 🤑</p>
+                
+                <p>Meanwhile, you're stuck googling "how to center a div" for the 47th time. 😅</p>
+                
+                <p>Here's the truth: The tools exist. The opportunities are real. But nobody's showing you the FULL playbook.</p>
+                
+                <p>That's why I'm launching the 🎯 Vibe Coding Boot Camp</p>
+                
+     
+            </div>
+            
+            <!-- Value Proposition -->
+            <div class="value-proposition" style="text-align: left;">
+                <h2>💰 Transform Your Career in Just 5 Days</h2>
+                <ul style="list-style: none; padding-left: 0; color: #000;">
+                    <li style="margin-bottom: 8px; color: #000;">
+                        ⚡ <strong>Master the actual tools that make coding 10x faster</strong>
+                    </li>
+                    <li style="margin-bottom: 8px; color: #000;">
+                        🎯 <strong>Learn the secret sauce techniques real solopreneurs use</strong>
+                    </li>
+
+                    <li style="margin-bottom: 8px; color: #000;">
+                        🚢 <strong>Build AND deploy your first revenue-ready web service</strong>
+                    </li>
+                    <li style="margin-bottom: 8px; color: #000;">
+                        💼 <strong>Build a portfolio that gets you hired</strong>
+                    </li>
+                    <li style="margin-bottom: 8px; color: #000;">
+                        🔥 <strong>100% Money-Back Guarantee if not satisfied</strong>
+                    </li>
+                </ul>
+ 
+            </div>
+            
+            
+            <!-- Instructor Bio -->
+            <div class="instructor-section">
+                <h2>👨‍💻 Meet Your Instructor</h2>
+                <div class="instructor-bio">
+                    <p><strong>Jaehee Song</strong> - Full-stack developer with 10+ years building scalable applications. Former tech lead at Fortune 500 companies, now helping entrepreneurs turn ideas into profitable apps.</p>
+                    <p>🏆 Taught 500+ people | Built 50+ apps </p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h2>Stop Watching. Start Building. 🔥</h2>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-text">Master<br>No-Code Tools</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-text">Learn Proven<br>Techniques</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💡</div>
+                        <div class="feature-text">Business<br>Strategies</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🚢</div>
+                        <div class="feature-text">Deploy Your<br>First App</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bootcamp-cards">
+                <div class="bootcamp-card">
+                    <h3><span class="location-icon">📍</span> Bellevue Cohort</h3>
+                    <div class="bootcamp-dates">
+                        <strong>📅 Dates:</strong>
+                        Oct 21, 23, 28, 30, Nov 1
+                    </div>
+                    <div class="time-info">
+                        🕰️ 6:00 - 9:00 PM
+                    </div>
+                    <div class="address">
+                        15405 SE 37th St #110<br>
+                        Bellevue, WA 98006
+                    </div>
+                    <a href="https://lu.ma/8qjj4dwr" class="register-btn" target="_blank">
+                        🎟️ Get Ticket - Limited Spots!
+                    </a>
+                </div>
+                
+                <div class="bootcamp-card">
+                    <h3><span class="location-icon">📍</span> Seattle Cohort</h3>
+                    <div class="bootcamp-dates">
+                        <strong>📅 Dates:</strong>
+                        Oct 22, 24, 29, 31, Nov 1
+                    </div>
+                    <div class="time-info">
+                        🕰️ 6:00 - 9:00 PM
+                    </div>
+                    <div class="address">
+                        1100 NE Campus Pkwy #200<br>
+                        Seattle, WA 98105
+                    </div>
+                    <a href="https://lu.ma/s7t174rz" class="register-btn" target="_blank">
+                        🚀 Request to Join - Act Fast!
+                    </a>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <div class="cta-section-content">
+                    <h2>Scholarships and discounts are available for a limited number of seats. Seats are limited — act now. Questions about tuition assistance? Just ask.</h2>
+                    <p><strong>Email:</strong> <a href="mailto:vibecoding@swcseattle.com">vibecoding@swcseattle.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Countdown to October 21, 2024
+        const countdownDate = new Date("Oct 21, 2024 18:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            if (distance > 0) {
+                document.getElementById("countdown").innerHTML = `
+                    <div class="timer-unit"><span class="timer-number">${days}</span><span class="timer-label">Days</span></div>
+                    <div class="timer-unit"><span class="timer-number">${hours}</span><span class="timer-label">Hours</span></div>
+                    <div class="timer-unit"><span class="timer-number">${minutes}</span><span class="timer-label">Min</span></div>
+                    <div class="timer-unit"><span class="timer-number">${seconds}</span><span class="timer-label">Sec</span></div>
+                `;
+            } else {
+                document.getElementById("countdown").innerHTML = `
+                    <div style="color: #764ba2; font-size: 24px; font-weight: 700;">
+                        🎉 BOOTCAMP HAS STARTED! 🎉
+                    </div>
+                `;
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effect to project examples
+            const projectExamples = document.querySelectorAll('.project-example');
+            projectExamples.forEach(example => {
+                example.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                });
+                
+                example.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
