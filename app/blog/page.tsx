@@ -93,7 +93,7 @@ export default function BlogIndexPage() {
                           <img 
                             src={featuredPost.image} 
                             alt={featuredPost.title} 
-                            className="w-full h-full object-cover rounded-lg"
+                            className="w-full h-full object-contain bg-white rounded-lg"
                           />
                         ) : (
                           <div className="w-48 h-48 bg-indigo-300 dark:bg-indigo-700 rounded-lg flex items-center justify-center">
@@ -143,7 +143,7 @@ export default function BlogIndexPage() {
                             <img 
                               src={post.image} 
                               alt={post.title} 
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-contain bg-white"
                             />
                           ) : (
                             <svg className="w-12 h-12 text-gray-400 dark:text-gray-600" fill="currentColor" viewBox="0 0 20 20">

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding Presentation - Jaehee Song</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            color: #333;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            width: 90vw;
+            max-width: 1600px;
+            height: min(calc(90vw * 9 / 16), 90vh);
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px 80px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            animation: slideIn 0.5s ease-out;
+            aspect-ratio: 16 / 9;
+        }
+
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 30px 40px;
+                width: 95vw;
+                height: calc(95vw * 9 / 16);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px 30px;
+                width: 98vw;
+                height: auto;
+                min-height: 80vh;
+                aspect-ratio: auto;
+            }
+        }
+
+        /* Laptop height optimizations: ensure content fits without clipping */
+        @media (max-height: 900px) and (min-width: 769px) {
+            .slide { padding: 30px 60px; max-height: 88vh; }
+            h1 { font-size: 2.8em; }
+            h2 { font-size: 2em; }
+            .emoji-icon { font-size: 4.5em; }
+            .content { font-size: 1.1em; }
+            .journey { gap: 22px; margin: 25px 0; }
+            .journey-icon { width: 80px; height: 80px; }
+            .journey-icon svg { width: 40px; height: 40px; }
+        }
+
+        @media (max-height: 800px) and (min-width: 769px) {
+            .slide { padding: 24px 48px; max-height: 86vh; }
+            h1 { font-size: 2.5em; }
+            h2 { font-size: 1.8em; }
+            .emoji-icon { font-size: 4em; }
+            .subtitle { font-size: 1.1em; }
+            .content { font-size: 1.05em; }
+            .journey { gap: 18px; margin: 20px 0; }
+            .journey-icon { width: 72px; height: 72px; }
+            .journey-icon svg { width: 36px; height: 36px; }
+        }
+
+        /* As a fallback for very short screens, allow internal scroll */
+        @media (max-height: 700px) and (min-width: 769px) {
+            .slide { padding: 20px 40px; max-height: 82vh; overflow-y: auto; }
+            h1 { font-size: 2.3em; }
+            h2 { font-size: 1.6em; }
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 3.5vw, 3em);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: clamp(1.6rem, 2.5vw, 2.2em);
+            margin-bottom: 16px;
+            color: #667eea;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 1.8vw, 1.3em);
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .content {
+            font-size: clamp(1rem, 1.4vw, 1.2em);
+            line-height: 1.6;
+            color: #444;
+            max-width: 1200px;
+        }
+
+        .icon-large {
+            font-size: 8em;
+            margin: 30px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .icon-medium {
+            font-size: 4em;
+            margin: 20px 0;
+            color: #667eea;
+        }
+
+        .svg-icon {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+        }
+
+        .svg-icon-medium {
+            width: 70px;
+            height: 70px;
+            margin: 15px auto;
+        }
+
+        .svg-icon-small {
+            width: 50px;
+            height: 50px;
+            margin: 10px auto;
+        }
+
+        .emoji-icon {
+            font-size: clamp(3rem, 6vw, 5em);
+            margin: 15px 0;
+            display: block;
+        }
+
+        .journey {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .journey-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .journey-icon {
+            font-size: 3em;
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .journey-icon svg {
+            width: 45px;
+            height: 45px;
+            fill: #667eea;
+        }
+
+        .arrow {
+            font-size: 2em;
+            color: #764ba2;
+            font-weight: bold;
+        }
+
+        .misunderstanding-box {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 30px 50px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            max-width: 1200px;
+        }
+
+        .reality-box {
+            background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+            color: white;
+            padding: 30px 50px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 10px 30px rgba(81, 207, 102, 0.3);
+            max-width: 1200px;
+        }
+
+        .matter-box {
+            background: linear-gradient(135deg, #ffd43b 0%, #fab005 100%);
+            color: #333;
+            padding: 30px 50px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 10px 30px rgba(255, 212, 59, 0.3);
+            max-width: 1200px;
+        }
+
+        .cross-icon {
+            color: #ff6b6b;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .check-icon {
+            color: #51cf66;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        /* Helper to pin an icon at the top center inside a slide */
+        .inside-top { position: absolute; top: 32px; left: 50%; transform: translateX(-50%); }
+        .slide .inside-top + h1 { margin-top: 54px; }
+
+        .star-icon {
+            color: #ffd43b;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            z-index: 1000;
+            pointer-events: none; /* allow clicks through container; buttons re-enable */
+        }
+
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            color: #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            pointer-events: auto; /* clickable while parent ignores */
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: #667eea;
+            color: white;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: #667eea;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-size: 1.15em;
+            color: #444;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #666;
+            font-size: 1em;
+            margin-top: 15px;
+            padding: 15px 20px;
+            border-left: 4px solid #667eea;
+            background: rgba(102, 126, 234, 0.05);
+            max-width: 1000px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 22px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            margin: 16px 0;
+            font-size: clamp(0.85rem, 1.2vw, 1em);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: min(800px, 90%);
+        }
+
+        .highlight {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            width: 100%;
+            gap: 20px;
+        }
+
+        .diagram-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid #667eea;
+            min-width: 180px;
+            flex: 1;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .flow-box {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+            min-width: 140px;
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Two-line horizontal layout for slide 11 */
+        .process-flow.two-line {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+            width: 100%;
+        }
+        .process-flow.two-line .flow-box { width: 100%; }
+        .process-flow.two-line .flow-box.full { grid-column: 1 / -1; }
+        @media (max-width: 768px), (max-height: 700px) {
+            .process-flow.two-line { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Who am I -->
+        <div class="slide active">
+            <div class="emoji-icon">👨‍💼</div>
+            <h1>Who am I?</h1>
+            <h2>Jaehee Song</h2>
+            <div class="journey">
+                <div class="journey-step">
+                    <div class="journey-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#667eea" opacity="0.3"/>
+                            <path d="M2 17L12 22L22 17" stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="subtitle">Implementer</div>
+                </div>
+                <div class="arrow">➜</div>
+                <div class="journey-step">
+                    <div class="journey-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" fill="#667eea"/>
+                        </svg>
+                    </div>
+                    <div class="subtitle">Builder</div>
+                </div>
+                <div class="arrow">➜</div>
+                <div class="journey-step">
+                    <div class="journey-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="#667eea" stroke-width="2" fill="#667eea" opacity="0.2"/>
+                            <path d="M12 6v6l4 2" stroke="#667eea" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="12" r="2" fill="#667eea"/>
+                        </svg>
+                    </div>
+                    <div class="subtitle">Solver</div>
+                </div>
+            </div>
+            <p class="content">Staff Data Engineer at Visa | Executive Director at Seattle Partners LLC<br>
+            Over 20 years of experience in data platform architecture and AI solutions</p>
+        </div>
+
+        <!-- Slide 2: What does Vibe Coding do -->
+        <div class="slide">
+            <div class="emoji-icon">✨💻</div>
+            <h1>What Does Vibe Coding Do?</h1>
+            <div class="content">
+                <p style="font-size: 1.5em; margin: 30px 0;"><strong>Generate Computer Programs</strong></p>
+                <p>Using AI to transform ideas into working code through natural language</p>
+            </div>
+            <div class="process-flow">
+                <div class="flow-box">
+                    <div style="font-size: 2.5em;">🧠</div>
+                    <p style="margin-top: 10px;">Your Idea</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">
+                    <div style="font-size: 2.5em;">🤖</div>
+                    <p style="margin-top: 10px;">AI Processing</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">
+                    <div style="font-size: 2.5em;">💾</div>
+                    <p style="margin-top: 10px;">Working Code</p>
+                </div>
+            </div>
+            <div class="quote">"The best code is the code that solves real problems efficiently"</div>
+        </div>
+
+        <!-- Slide 3: What does computer programming do -->
+        <div class="slide">
+            <div class="emoji-icon">⚙️🖥️</div>
+            <h1>What Does Computer Programming Do?</h1>
+            <div class="content">
+                <h2 style="margin: 30px 0;">Structured Language for Computer to Execute Tasks</h2>
+                <div class="code-block">
+                    <div>// Human Intent → Machine Action</div>
+                    <div style="margin-top: 15px;">if (user_clicks_button) {</div>
+                    <div style="margin-left: 30px;">display_welcome_message();</div>
+                    <div style="margin-left: 30px;">save_user_preference();</div>
+                    <div>}</div>
+                </div>
+                <p style="margin-top: 30px;">Programming bridges the gap between human intention and machine execution</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Misunderstanding 1 -->
+        <div class="slide">
+            <div class="cross-icon">❌</div>
+            <h1>Misunderstanding #1</h1>
+            <div class="misunderstanding-box">
+                <h2 style="color: white; font-size: 2.5em;">"It's Fully Automatic Magic"</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">Many believe AI coding is a push-button solution that requires zero thinking</p>
+            </div>
+            <div class="content" style="margin-top: 30px;">
+                <p><span style="color: #ff6b6b; font-size: 1.5em;">⚠️</span> Reality: AI is a powerful assistant, not a replacement for critical thinking</p>
+                <p style="margin-top: 15px;">You still need to guide, validate, and refine the output</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Misunderstanding 2 -->
+        <div class="slide">
+            <div class="cross-icon">❌</div>
+            <h1>Misunderstanding #2</h1>
+            <div class="misunderstanding-box">
+                <h2 style="color: white; font-size: 2.5em;">"AI-Generated Code is Always Sloppy or Low-Quality"</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">The assumption that AI can't produce production-grade code</p>
+            </div>
+            <div class="content" style="margin-top: 30px;">
+                <p><span style="color: #ff6b6b; font-size: 1.5em;">⚠️</span> Reality: Code quality depends on how well you prompt and refine</p>
+                <p style="margin-top: 15px;">With proper guidance, AI can generate enterprise-level solutions</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Misunderstanding 3 -->
+        <div class="slide">
+            <div class="cross-icon">❌</div>
+            <h1>Misunderstanding #3</h1>
+            <div class="misunderstanding-box">
+                <h2 style="color: white; font-size: 2.5em;">"It's Only for Beginners or Non-Coders"</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">The belief that AI coding is a crutch for those who can't code</p>
+            </div>
+            <div class="content" style="margin-top: 30px;">
+                <p><span style="color: #ff6b6b; font-size: 1.5em;">⚠️</span> Reality: Expert developers use AI to accelerate their workflow</p>
+                <p style="margin-top: 15px;">Top engineers leverage AI to focus on architecture and problem-solving</p>
+                <div class="quote">"The best developers know when to write code and when to generate it"</div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Misunderstanding 4 -->
+        <div class="slide">
+            <div class="cross-icon">❌</div>
+            <h1>Misunderstanding #4</h1>
+            <div class="misunderstanding-box">
+                <h2 style="color: white; font-size: 2.5em;">"It's a Replacement for Traditional Coding or Developers"</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">Fear that AI will eliminate the need for human developers</p>
+            </div>
+            <div class="content" style="margin-top: 30px;">
+                <p><span style="color: #ff6b6b; font-size: 1.5em;">⚠️</span> Reality: AI augments developers, it doesn't replace them</p>
+                <p style="margin-top: 15px;">Complex systems still require human expertise in architecture, security, and optimization</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Reality 1 -->
+        <div class="slide">
+            <div class="check-icon">✅</div>
+            <h1>The Reality</h1>
+            <div class="reality-box">
+                <h2 style="color: white; font-size: 2.5em;">The Right Tool Matters</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">Success depends on choosing the appropriate AI tool for your specific task</p>
+            </div>
+            <div class="diagram">
+                <div class="diagram-box">
+                    <div style="font-size: 2.5em;">📝</div>
+                    <p style="margin-top: 15px;"><strong>Simple Tasks</strong></p>
+                    <p>Basic assistants</p>
+                </div>
+                <div class="diagram-box">
+                    <div style="font-size: 2.5em;">🏗️</div>
+                    <p style="margin-top: 15px;"><strong>Complex Projects</strong></p>
+                    <p>Advanced AI platforms</p>
+                </div>
+                <div class="diagram-box">
+                    <div style="font-size: 2.5em;">🏢</div>
+                    <p style="margin-top: 15px;"><strong>Enterprise Solutions</strong></p>
+                    <p>Specialized tools</p>
+                </div>
+            </div>
+            <p class="content">GPT-4, Claude, GitHub Copilot, Cursor AI - each excels in different scenarios</p>
+        </div>
+
+        <!-- Slide 9: Reality 2 -->
+        <div class="slide">
+            <div class="check-icon inside-top" style="font-size: 0.1px;">✅</div>
+            <h1>The Reality</h1>
+            <div class="reality-box">
+                <h2 style="color: white; font-size: 2.5em;">Quality Depends on Your Knowledge & Time</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">The output quality is directly proportional to your input quality</p>
+            </div>
+            <div class="diagram">
+                <div class="diagram-box" style="flex: 1; margin: 10px;">
+                    <div style="font-size: 2.5em;">🎓</div>
+                    <p style="margin-top: 15px; font-size: 1.2em;"><strong>Your Expertise</strong></p>
+                    <p>Better prompts</p>
+                    <p>Better results</p>
+                </div>
+                <div style="font-size: 2em; color: #51cf66; margin: 0 20px;">+</div>
+                <div class="diagram-box" style="flex: 1; margin: 10px;">
+                    <div style="font-size: 2.5em;">⏱️</div>
+                    <p style="margin-top: 15px; font-size: 1.2em;"><strong>Iteration Time</strong></p>
+                    <p>Refine & test</p>
+                    <p>Polish output</p>
+                </div>
+                <div style="font-size: 2em; color: #51cf66; margin: 0 20px;">=</div>
+                <div class="diagram-box" style="flex: 1; margin: 10px;">
+                    <div style="font-size: 2.5em;">🏆</div>
+                    <p style="margin-top: 15px; font-size: 1.2em;"><strong>Production Quality</strong></p>
+                    <p>Professional code</p>
+                    <p>Reliable systems</p>
+                </div>
+            </div>
+            <div class="quote">"Garbage in, garbage out - but expertise in, excellence out"</div>
+        </div>
+
+        <!-- Slide 10: What Matters 1 -->
+        <div class="slide">
+            <div class="star-icon">⭐</div>
+            <h1>What Really Matters</h1>
+            <div class="matter-box">
+                <h2 style="font-size: 2.5em;">Your Domain Knowledge</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">Understanding your business problem is more valuable than coding syntax</p>
+            </div>
+            <div class="content" style="margin-top: 30px;">
+                <p style="font-size: 1.2em; margin-bottom: 2px;"><span style="color: #51cf66; font-size: 1.2em;">✓</span> Know what problem you're solving</p>
+                <p style="font-size: 1.2em; margin-bottom: 2px;"><span style="color: #51cf66; font-size: 1.2em;">✓</span> Understand your industry requirements</p>
+                <p style="font-size: 1.2em; margin-bottom: 2px;"><span style="color: #51cf66; font-size: 1.2em;">✓</span> Recognize edge cases and constraints</p>
+                <p style="font-size: 1.2em;"><span style="color: #51cf66; font-size: 1.2em;">✓</span> Validate results against real-world scenarios</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: What Matters 2 -->
+        <div class="slide">
+            <div class="star-icon">⭐</div>
+            <h1>What Really Matters</h1>
+            <div class="matter-box">
+                <h2 style="font-size: 2.5em;">Your Project Management Skills</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">Breaking down complex problems into manageable AI-friendly tasks</p>
+            </div>
+            <div class="process-flow two-line">
+                <div class="flow-box">
+                    <div style="font-size: 1.5em;">🗂️</div>
+                    <p style="margin-top: 10px;"><strong>Decompose</strong> - Break project into small components</p>
+                </div>
+                <div class="flow-box">
+                    <div style="font-size: 1.5em;">📊</div>
+                    <p style="margin-top: 10px;"><strong>Prioritize</strong> - Focus on high-value features first</p>
+                </div>
+                <div class="flow-box full">
+                    <div style="font-size: 1.5em;">🔄</div>
+                    <p style="margin-top: 10px;"><strong>Iterate</strong> - Test, refine, and improve continuously</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: What Matters 3 -->
+        <div class="slide">
+            <div class="star-icon">⭐</div>
+            <h1>What Really Matters</h1>
+            <div class="matter-box">
+                <h2 style="font-size: 2.5em;">Quality Data</h2>
+                <p style="font-size: 1.3em; margin-top: 20px;">AI is only as good as the data and context you provide</p>
+            </div>
+            <div class="diagram" style="margin-top: 40px;">
+                <div class="diagram-box" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(238, 90, 111, 0.1) 100%); border-color: #ff6b6b;">
+                    <div style="font-size: 2em; color: #ff6b6b;">❌</div>
+                    <p style="margin-top: 15px;"><strong>Poor Data</strong></p>
+                    <p>Vague requirements</p>
+                    <p>Incomplete specs</p>
+                    <p>Ambiguous goals</p>
+                </div>
+                <div class="diagram-box" style="background: linear-gradient(135deg, rgba(81, 207, 102, 0.1) 0%, rgba(55, 178, 77, 0.1) 100%); border-color: #51cf66;">
+                    <div style="font-size: 2em; color: #51cf66;">✅</div>
+                    <p style="margin-top: 15px;"><strong>Quality Data</strong></p>
+                    <p>Clear specifications</p>
+                    <p>Concrete examples</p>
+                    <p>Measurable outcomes</p>
+                </div>
+            </div>
+            <div class="quote">"With 20+ years in data engineering, I've learned: quality inputs create quality outputs"</div>
+        </div>
+
+        <!-- Slide 13: Contact -->
+        <div class="slide">
+            <h1>Let's Connect</h1>
+            <h2>Jaehee Song</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span style="font-size: 1.5em;">✉️</span>
+                    <span>jsong@koreatous.com</span>
+                </div>
+                <div class="contact-item">
+                    <span style="font-size: 1.5em;">🌐</span>
+                    <span>www.ai-biz.app</span>
+                </div>
+                <div class="contact-item">
+                    <span style="font-size: 1.5em;">💻</span>
+                    <span>apps.ai-biz.app</span>
+                </div>
+            </div>
+            <div class="content" style="margin-top: 50px;">
+                <p style="font-size: 1.3em;"><strong>Ready to master Vibe Coding?</strong></p>
+                <p style="margin-top: 15px;">Join the Vibe Coding Boot Camp in Bellevue & Seattle</p>
+                <p style="margin-top: 10px; color: #667eea; font-weight: bold;">Transform your ideas into reality with AI-powered development</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">13</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prev-btn">
+            ← Previous
+        </button>
+        <button class="nav-btn" id="next-btn">
+            Next →
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const currentSlideEl = document.getElementById('current-slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            currentSlideEl.textContent = currentSlide + 1;
+            
+            // Update button states
+            prevBtn.style.opacity = currentSlide === 0 ? '0.5' : '1';
+            nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.5' : '1';
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Touch gestures for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
+
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+    </script>
+</body>
+</html>
